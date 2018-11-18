@@ -1,0 +1,128 @@
+======================================================================
+Library Dependences:
+======================================================================
+*** cfitsio (3.x recommended):
+https://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html
+
+CFITSIO is a library of C and Fortran subroutines for reading and
+writing data files in FITS (Flexible Image Transport System) data
+format.
+
+Using macports, give
+sudo port install cfitsio +universal
+
+*** glib2 (2.16 or later):
+GTK+, or the GIMP Toolkit, is a multi-platform toolkit for creating
+graphical user interfaces. Offering a complete set of widgets, GTK+ is
+suitable for projects ranging from small one-off tools to complete
+application suites.
+
+using macports give
+sudo port install
+
+*** OIFITS (NOT NECESSARY HERE)
+
+OIFITSlib is a C library for input/output, merging, filtering and
+checking of optical/IR interferometry datasets in the OIFITS exchange
+format. A preprint of the draft specification for OIFITS version 2 is
+available at http://arxiv.org/abs/1510.04556 .
+
+http://www.mrao.cam.ac.uk/research/optical-interferometry/oifits/
+
+The C-library is at
+https://github.com/jsy1001/oifitslib
+
+
+*** fftw3 (v.3.3.6:
+
+FFTW is a C subroutine library for computing the discrete Fourier
+transform (DFT) in one or more dimensions, of arbitrary input size,
+and of both real and complex data (as well as of even/odd data,
+i.e. the discrete cosine/sine transforms or DCT/DST).
+
+http://www.fftw.org
+
+
+*** cmake
+
+CMake is an open-source, cross-platform family of tools designed to
+build, test and package software.  https://cmake.org
+
+Download at:
+https://cmake.org/download/
+
+or with macports:
+sudo port install cmake
+
+======================================================================
+To install:
+======================================================================
+(after installing libraries in /opt/local/lib)
+
+cd ./src
+make
+
+======================================================================
+Commands/Help:
+======================================================================
+The following commands are available under ./bin
+(to see help, just give the command without arguments; for detailed
+documentation:
+open ./docs/html/index.html
+or
+open ./docs/latex/refman.pdf
+)
+
+* image2uv
+Reads an image stored in an input FITS file, calculates
+its complex Fourier transform, and stores the resulting
+visibility amplitudes and phases in an output FITS file.
+
+* synthimage 
+Creates a synthetic static square image from an analytic model
+and stores the result in an output FITS file.
+
+* fitscopy 
+Copies an input file to an output file, optionally filtering
+the file in the process.
+
+* imarith
+Perform 'image1 oper image2' or 'image1 oper value'
+creating a new output image.
+
+* imcopy
+Copy an input image to an output image, optionally compressing
+or uncompressing the image in the process.
+
+* imlist
+List the the pixel values in a FITS image 
+
+* imstat
+Compute statistics of pixels in the input image
+
+* listhead
+List the FITS header keywords in a single extension, or, if 
+ext is not given, list the keywords in all the extensions. 
+
+* liststruc 
+List the structure of a single extension, or, if ext is 
+not given, list the structure of the entire FITS file.
+
+* modhead
+Write or modify the value of a header keyword.
+
+* tabcalc 
+Compute new values for the specified table column using the
+input arithmetic expression which may be a function of the 
+values in other table columns.
+
+* tablist
+List the contents of a FITS table 
+
+* tabmerge
+Merge 2 tables by copying all the rows from the 1st table
+into the 2nd table.
+
+* tabselect 
+Copy selected rows from the input table to the output file
+based on the input boolean expression.
