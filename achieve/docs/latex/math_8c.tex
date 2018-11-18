@@ -1,0 +1,156 @@
+\hypertarget{math_8c}{}\section{math.\+c File Reference}
+\label{math_8c}\index{math.\+c@{math.\+c}}
+{\ttfamily \#include \char`\"{}definitions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{math_8c_a09fc148003f20ecc4834d4ea6aefb15c}{A\+CC}~40.\+0\hypertarget{math_8c_a09fc148003f20ecc4834d4ea6aefb15c}{}\label{math_8c_a09fc148003f20ecc4834d4ea6aefb15c}
+
+\begin{DoxyCompactList}\small\item\em From numerical recipes. \end{DoxyCompactList}\item 
+\#define \hyperlink{math_8c_a05c95a8cd48fd23b2f7fd26e390b3921}{B\+I\+G\+NO}~1.\+0e10\hypertarget{math_8c_a05c95a8cd48fd23b2f7fd26e390b3921}{}\label{math_8c_a05c95a8cd48fd23b2f7fd26e390b3921}
+
+\begin{DoxyCompactList}\small\item\em a very big number; from numerical recipes \end{DoxyCompactList}\item 
+\#define \hyperlink{math_8c_a8368f18514f32a2da1a040bb3f365b38}{B\+I\+G\+NI}~1.\+0e-\/10\hypertarget{math_8c_a8368f18514f32a2da1a040bb3f365b38}{}\label{math_8c_a8368f18514f32a2da1a040bb3f365b38}
+
+\begin{DoxyCompactList}\small\item\em a very small number; from numerical recipes \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{math_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}{bessj0} (double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+0(x) for any real x. \end{DoxyCompactList}\item 
+double \hyperlink{math_8c_a61d9379ac3c49584a95702bddaae996d}{bessj1} (double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+1(x) for any real x. \end{DoxyCompactList}\item 
+double \hyperlink{math_8c_ad1acbce84c1617f7b4cca7994a026988}{bessj} (int n, double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+n(x) for any real x. \end{DoxyCompactList}\item 
+double \hyperlink{math_8c_ad33f21736f590e71d74293734e865c07}{polar\+Angle} (double x, double y)
+\begin{DoxyCompactList}\small\item\em Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{math.\+c@{math.\+c}!bessj@{bessj}}
+\index{bessj@{bessj}!math.\+c@{math.\+c}}
+\subsubsection[{\texorpdfstring{bessj(int n, double x)}{bessj(int n, double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{math_8c_ad1acbce84c1617f7b4cca7994a026988}{}\label{math_8c_ad1acbce84c1617f7b4cca7994a026988}
+
+
+Returns the Bessel function J\+\_\+n(x) for any real x. 
+
+(DP) Changed all floats to doubles; Also calls the relevant Bessel functions for n=0 and n=1
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em n} & an integer argument with the order of the Bessel function \\
+\hline
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{math.\+c@{math.\+c}!bessj0@{bessj0}}
+\index{bessj0@{bessj0}!math.\+c@{math.\+c}}
+\subsubsection[{\texorpdfstring{bessj0(double x)}{bessj0(double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj0 (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{math_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}{}\label{math_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}
+
+
+Returns the Bessel function J\+\_\+0(x) for any real x. 
+
+(DP) Changed all floats to doubles
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{math.\+c@{math.\+c}!bessj1@{bessj1}}
+\index{bessj1@{bessj1}!math.\+c@{math.\+c}}
+\subsubsection[{\texorpdfstring{bessj1(double x)}{bessj1(double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj1 (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{math_8c_a61d9379ac3c49584a95702bddaae996d}{}\label{math_8c_a61d9379ac3c49584a95702bddaae996d}
+
+
+Returns the Bessel function J\+\_\+1(x) for any real x. 
+
+(DP) Changed all floats to doubles
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{math.\+c@{math.\+c}!polar\+Angle@{polar\+Angle}}
+\index{polar\+Angle@{polar\+Angle}!math.\+c@{math.\+c}}
+\subsubsection[{\texorpdfstring{polar\+Angle(double x, double y)}{polarAngle(double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}double polar\+Angle (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{math_8c_ad33f21736f590e71d74293734e865c07}{}\label{math_8c_ad33f21736f590e71d74293734e865c07}
+
+
+Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. 
+
+Useful in converting from Cartesian to Polar Coordinates
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the horizontal Cartesian coordinate \\
+\hline
+{\em y} & a double argument for the vertical Cartesian coordinate\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the phi angle in radians 
+\end{DoxyReturn}

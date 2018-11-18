@@ -1,0 +1,55 @@
+\hypertarget{tabmerge_8c}{}\section{Fits/tabmerge.c File Reference}
+\label{tabmerge_8c}\index{Fits/tabmerge.\+c@{Fits/tabmerge.\+c}}
+
+
+Merges 2 tables by appending all the rows from the 1st table onto the 2nd table.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{tabmerge_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{tabmerge_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Merges 2 tables by appending all the rows from the 1st table onto the 2nd table. 
+
+Use\+: tabmerge intable\mbox{[}ext\mbox{]}\mbox{[}filters\mbox{]} outtable\mbox{[}ext\mbox{]}
+
+Merge 2 tables by appending all the rows from the 1st table onto the 2nd table. The 2 tables must have identical structure, with the same number of columns with the same datatypes.
+
+Examples\+:
+\begin{DoxyItemize}
+\item tabmerge in.\+fit+1 out.\+fit+2 append the rows from the 1st extension of the input file into the table in the 2nd extension of the output file.
+\item tabmerge \textquotesingle{}in.\+fit+1\mbox{[}\mbox{[}PI $>$ 45\mbox{]}\textquotesingle{} out.\+fit+2 Same as the 1st example, except only rows that have a PI column value $>$ 45 will be merged into the output table.
+\end{DoxyItemize}
+
+In this program, a series of \textquotesingle{}if\textquotesingle{} statements are used to verify that the input files exist and that they point to valid tables with identical sets of columns. If all these checks are satisfied correctly, then additional empty rows are appended to the end of the output table, and the rows are copied one by one from the input table to the output table. Since the tables have identical structures, it is possible here to use the low-\/level C\+F\+I\+T\+S\+IO routines that read and write each row of the table as a raw string of bytes. This is much faster than having to read and write the numerical values in each column individually.
+
+Note that in this example the output file is modified in place, rather than creating a whole new output file. It is often easier to modify the existing file in this way rather than create a new one, but there is a slight risk that the output file could be corrupted if the program crashes before the modifications have been completed (e.\+g., due to a power failure, or the user exits the program with Cntl-\/C, or there is insufficient disk space to write the modified file).
+
+Version 1.\+0\+: September 29, 2017 (DP)
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis (updated from \href{https://heasarc.gsfc.nasa.gov/docs/software/fitsio/cexamples.html}{\tt https\+://heasarc.\+gsfc.\+nasa.\+gov/docs/software/fitsio/cexamples.\+html})
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 29, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000011}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+no warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000011}{Todo}]nothing left\end{DoxyRefDesc}

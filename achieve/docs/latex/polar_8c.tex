@@ -1,0 +1,221 @@
+\hypertarget{polar_8c}{}\section{O\+L\+D/polar.c File Reference}
+\label{polar_8c}\index{O\+L\+D/polar.\+c@{O\+L\+D/polar.\+c}}
+{\ttfamily \#include \char`\"{}definitions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bfseries N\+P\+HI}~128\hypertarget{polar_8c_afd2d19f43cde89a0a0614f330164fd09}{}\label{polar_8c_afd2d19f43cde89a0a0614f330164fd09}
+
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{polar_8c_ae4172c6d3b49f74984a30fe7c2427d9c}{interp\+U\+Vamp} (double u, double v, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Amp\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Returns the visibility amplitude at a given (u,v) point by interpolating the input grid. \end{DoxyCompactList}\item 
+double \hyperlink{polar_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}{interp\+U\+Vphase} (double u, double v, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Phase\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Returns the visibility phase at a given (u,v) point by interpolating the input grid. \end{DoxyCompactList}\item 
+int \hyperlink{polar_8c_a8ab884b184663bd1be68a9b2b3d01681}{makek\+Grid} (int Nk, double kmin, double kmax, double kco\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Generates a grid of k-\/points. \end{DoxyCompactList}\item 
+int \hyperlink{polar_8c_a1f9d3e013f30694a215b08366bde182c}{uv\+To\+Polar} (int Nu, int Nv, int Nk, int Nm, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Amp\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]}, double Vis\+Phase\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]}, double kco\mbox{[}$\,$\mbox{]}, double Re\+Pk\mbox{[}\hyperlink{definitions_8h_a6ccfc696bb2c82285f45d6f8e05d50fb}{Nk\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a862e3f42f96df504b9de5f90f1de66ca}{Nm\+Max}\mbox{]}, double Im\+Pk\mbox{[}\hyperlink{definitions_8h_a6ccfc696bb2c82285f45d6f8e05d50fb}{Nk\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a862e3f42f96df504b9de5f90f1de66ca}{Nm\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Converts a u-\/v map to a polar k-\/m map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{polar.\+c@{polar.\+c}!interp\+U\+Vamp@{interp\+U\+Vamp}}
+\index{interp\+U\+Vamp@{interp\+U\+Vamp}!polar.\+c@{polar.\+c}}
+\subsubsection[{\texorpdfstring{interp\+U\+Vamp(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double Vis\+Amp[Nu\+Max][Nv\+Max])}{interpUVamp(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double VisAmp[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}double interp\+U\+Vamp (
+\begin{DoxyParamCaption}
+\item[{double}]{u, }
+\item[{double}]{v, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Amp\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{polar_8c_ae4172c6d3b49f74984a30fe7c2427d9c}{}\label{polar_8c_ae4172c6d3b49f74984a30fe7c2427d9c}
+
+
+Returns the visibility amplitude at a given (u,v) point by interpolating the input grid. 
+
+Given an (Nu,Nv) grid of visibility amplitudes Vis\+Amp\mbox{[}\mbox{]}\mbox{[}\mbox{]} with coordinates stored in Uco\mbox{[}\mbox{]} and Vco\mbox{[}\mbox{]}, the routine performs a linear interpolation using the nearest neigbohrs to calculate the visibility amplitude at an arbitrary point. The (u,v) grid is assumed to be equidistant in both directions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & a double with the u coordinate for which the amplitude is needed \\
+\hline
+{\em v} & a double with the v coordinate for which the amplitude is needed \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Amp\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility amplitudes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the visibility amplitude at the input (u,v) coordinates; it returns error code -\/99999 if (u,v) is out of bounds 
+\end{DoxyReturn}
+\index{polar.\+c@{polar.\+c}!interp\+U\+Vphase@{interp\+U\+Vphase}}
+\index{interp\+U\+Vphase@{interp\+U\+Vphase}!polar.\+c@{polar.\+c}}
+\subsubsection[{\texorpdfstring{interp\+U\+Vphase(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double Vis\+Phase[Nu\+Max][Nv\+Max])}{interpUVphase(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double VisPhase[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}double interp\+U\+Vphase (
+\begin{DoxyParamCaption}
+\item[{double}]{u, }
+\item[{double}]{v, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Phase\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{polar_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}{}\label{polar_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}
+
+
+Returns the visibility phase at a given (u,v) point by interpolating the input grid. 
+
+Given an (Nu,Nv) grid of visibility amplitudes Vis\+Phase\mbox{[}\mbox{]}\mbox{[}\mbox{]} with coordinates stored in Uco\mbox{[}\mbox{]} and Vco\mbox{[}\mbox{]}, the routine performs a linear interpolation using the nearest neigbohrs to calculate the visibility phase at an arbitrary point. The (u,v) grid is assumed to be equidistant in both directions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & a double with the u coordinate for which the amplitude is needed \\
+\hline
+{\em v} & a double with the v coordinate for which the amplitude is needed \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Phase\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility amplitudes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the visibility amplitude at the input (u,v) coordinates; it returns error code E\+R\+R\+O\+R\+\_\+\+B\+O\+U\+N\+DS if (u,v) is out of bounds 
+\end{DoxyReturn}
+\index{polar.\+c@{polar.\+c}!makek\+Grid@{makek\+Grid}}
+\index{makek\+Grid@{makek\+Grid}!polar.\+c@{polar.\+c}}
+\subsubsection[{\texorpdfstring{makek\+Grid(int Nk, double kmin, double kmax, double kco[])}{makekGrid(int Nk, double kmin, double kmax, double kco[])}}]{\setlength{\rightskip}{0pt plus 5cm}int makek\+Grid (
+\begin{DoxyParamCaption}
+\item[{int}]{Nk, }
+\item[{double}]{kmin, }
+\item[{double}]{kmax, }
+\item[{double}]{kco\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{polar_8c_a8ab884b184663bd1be68a9b2b3d01681}{}\label{polar_8c_a8ab884b184663bd1be68a9b2b3d01681}
+
+
+Generates a grid of k-\/points. 
+
+It generates an equidistant grid of Nk k-\/points and stores it in kco\mbox{[}\mbox{]}. The first grid point is at kmin and the last one is at kmax. It checks whether the number of grid points is less than the maximum Nkmax stored in the global definitions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Nk} & an int with the number of grid points in the k-\/direction \\
+\hline
+{\em kmin} & a double with the k-\/value of the first grid point \\
+\hline
+{\em kmax} & a double with the k-\/value of the last grid point \\
+\hline
+{\em kco\mbox{[}$\,$\mbox{]}} & a double array where the k-\/coordinates will be stored\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error, e.\+g., too many grid points 
+\end{DoxyReturn}
+\index{polar.\+c@{polar.\+c}!uv\+To\+Polar@{uv\+To\+Polar}}
+\index{uv\+To\+Polar@{uv\+To\+Polar}!polar.\+c@{polar.\+c}}
+\subsubsection[{\texorpdfstring{uv\+To\+Polar(int Nu, int Nv, int Nk, int Nm, double Uco[], double Vco[], double Vis\+Amp[Nu\+Max][Nv\+Max], double Vis\+Phase[Nu\+Max][Nv\+Max], double kco[], double Re\+Pk[Nk\+Max][Nm\+Max], double Im\+Pk[Nk\+Max][Nm\+Max])}{uvToPolar(int Nu, int Nv, int Nk, int Nm, double Uco[], double Vco[], double VisAmp[NuMax][NvMax], double VisPhase[NuMax][NvMax], double kco[], double RePk[NkMax][NmMax], double ImPk[NkMax][NmMax])}}]{\setlength{\rightskip}{0pt plus 5cm}int uv\+To\+Polar (
+\begin{DoxyParamCaption}
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{int}]{Nk, }
+\item[{int}]{Nm, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Amp\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}, }
+\item[{double}]{Vis\+Phase\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}, }
+\item[{double}]{kco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Re\+Pk\mbox{[}\+Nk\+Max\mbox{]}\mbox{[}\+Nm\+Max\mbox{]}, }
+\item[{double}]{Im\+Pk\mbox{[}\+Nk\+Max\mbox{]}\mbox{[}\+Nm\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{polar_8c_a1f9d3e013f30694a215b08366bde182c}{}\label{polar_8c_a1f9d3e013f30694a215b08366bde182c}
+
+
+Converts a u-\/v map to a polar k-\/m map. 
+
+Given a grid of (Nu,Nv) u-\/v visibility amplituded (stored in Vis\+Amp\mbox{[}\mbox{]}\mbox{[}\mbox{]}) and phases (stored in Vis\+Phas\mbox{[}\mbox{]}\mbox{[}\mbox{]}), it return the polar transform with (Nk,Nm) k-\/m points, with the real part of the polar transform stored in Re\+Pk\mbox{[}\mbox{]}\mbox{[}\mbox{]} and the imaginary part in Im\+Pk\mbox{[}\mbox{]}\mbox{[}\mbox{]}. The grid of k-\/points is in kco\mbox{[}\mbox{]}.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Nk} & an int with the number of grid points in the k-\/direction \\
+\hline
+{\em Nm} & an int with the number of grid points in the m-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Am\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility amplitudes \\
+\hline
+{\em Vis\+Phase\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility phases \\
+\hline
+{\em kco\mbox{[}$\,$\mbox{]}} & a double array with the k-\/coordinates \\
+\hline
+{\em Re\+Pk\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the real parts of the polar transform will be stored \\
+\hline
+{\em Im\+Pk\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the imaginary parts of the polar transform will be stored\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000024}{Todo}]It performs the phi integration given N\+P\+HI=128 points. In principle, this should depend on k. Given that the u-\/v grid is Cartesian, N\+P\+HI should be small at low k and large at large k.\end{DoxyRefDesc}

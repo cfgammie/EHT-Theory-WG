@@ -1,0 +1,330 @@
+\hypertarget{synthimage_8c}{}\section{synthimage.\+c File Reference}
+\label{synthimage_8c}\index{synthimage.\+c@{synthimage.\+c}}
+
+
+Creates a synthetic static image based on a model.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{synthimage_8c_a4c9fdf0c7230b4e3358ada61359d528e}{V\+M\+O\+D\+E\+D\+E\+F\+A\+U\+LT}~1\hypertarget{synthimage_8c_a4c9fdf0c7230b4e3358ada61359d528e}{}\label{synthimage_8c_a4c9fdf0c7230b4e3358ada61359d528e}
+
+\begin{DoxyCompactList}\small\item\em default verbose mode \char`\"{}medium\char`\"{} \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_ac1535592e39e7edf0cafbd5e695ea622}{M\+A\+X\+C\+H\+AR}~80\hypertarget{synthimage_8c_ac1535592e39e7edf0cafbd5e695ea622}{}\label{synthimage_8c_ac1535592e39e7edf0cafbd5e695ea622}
+
+\begin{DoxyCompactList}\small\item\em maximum number of characters for strings \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a7ddffc68f36a66daeb292a1357a52ae7}{M\+A\+X\+P\+I\+X\+EL}~4096\hypertarget{synthimage_8c_a7ddffc68f36a66daeb292a1357a52ae7}{}\label{synthimage_8c_a7ddffc68f36a66daeb292a1357a52ae7}
+
+\begin{DoxyCompactList}\small\item\em maximum number of pixels per size of image \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a2ba93d6d3463c3642dbb457a85d0098e}{N\+P\+I\+X\+E\+L\+D\+E\+F\+A\+U\+LT}~512\hypertarget{synthimage_8c_a2ba93d6d3463c3642dbb457a85d0098e}{}\label{synthimage_8c_a2ba93d6d3463c3642dbb457a85d0098e}
+
+\begin{DoxyCompactList}\small\item\em default number of pixels \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a05680b369502ebeee8ce1d0888e2083d}{P\+I\+X\+E\+L\+S\+I\+Z\+E\+D\+E\+F\+A\+U\+LT}~1.\+0\hypertarget{synthimage_8c_a05680b369502ebeee8ce1d0888e2083d}{}\label{synthimage_8c_a05680b369502ebeee8ce1d0888e2083d}
+
+\begin{DoxyCompactList}\small\item\em default pixel size \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_afb786c9aeabe2acb3d69c3a0225f3c04}{M\+O\+D\+E\+L\+D\+E\+F\+A\+U\+LT}~\char`\"{}gauss\char`\"{}\hypertarget{synthimage_8c_afb786c9aeabe2acb3d69c3a0225f3c04}{}\label{synthimage_8c_afb786c9aeabe2acb3d69c3a0225f3c04}
+
+\begin{DoxyCompactList}\small\item\em default model \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_aef1343d576ee4a4cb91195b61a1afb38}{P\+A\+R\+A\+M\+D\+E\+F\+A\+U\+L\+TG}~\char`\"{}1,1.\+0,0.\+0,0.\+0,20.\+0,20.\+0,0.\char`\"{}\hypertarget{synthimage_8c_aef1343d576ee4a4cb91195b61a1afb38}{}\label{synthimage_8c_aef1343d576ee4a4cb91195b61a1afb38}
+
+\begin{DoxyCompactList}\small\item\em default parameter string for gaussian model \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a3a31002e7b2817808bc16dc251e80e45}{P\+A\+R\+A\+M\+D\+E\+F\+A\+U\+L\+TC}~\char`\"{}1,1.\+0,0.\+0,0.\+0,10.\+0,0.\+5,0.\+5,0.\char`\"{}\hypertarget{synthimage_8c_a3a31002e7b2817808bc16dc251e80e45}{}\label{synthimage_8c_a3a31002e7b2817808bc16dc251e80e45}
+
+\begin{DoxyCompactList}\small\item\em default parameter string for crescent model \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a1672a7083cc5915b0beb351893da0d8a}{M\+A\+X\+P\+A\+R\+AM}~20\hypertarget{synthimage_8c_a1672a7083cc5915b0beb351893da0d8a}{}\label{synthimage_8c_a1672a7083cc5915b0beb351893da0d8a}
+
+\begin{DoxyCompactList}\small\item\em maximum number of model parameters \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a8d23feea868a983c8c2b661e1e16972f}{R\+ED}~\char`\"{}\textbackslash{}x1B\mbox{[}31m\char`\"{}\hypertarget{synthimage_8c_a8d23feea868a983c8c2b661e1e16972f}{}\label{synthimage_8c_a8d23feea868a983c8c2b661e1e16972f}
+
+\begin{DoxyCompactList}\small\item\em color R\+ED for error output \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a5bc410b99375860e54cee3f4bfe4b08e}{R\+E\+S\+E\+T\+C\+O\+L\+OR}~\char`\"{}\textbackslash{}x1B\mbox{[}0m\char`\"{}\hypertarget{synthimage_8c_a5bc410b99375860e54cee3f4bfe4b08e}{}\label{synthimage_8c_a5bc410b99375860e54cee3f4bfe4b08e}
+
+\begin{DoxyCompactList}\small\item\em color to reset to normal \end{DoxyCompactList}\item 
+\#define \hyperlink{synthimage_8c_a34b6524dbaca7869a0eb6abf9b26497f}{muarcsec\+To\+Degrees}~2.\+777778e-\/10\hypertarget{synthimage_8c_a34b6524dbaca7869a0eb6abf9b26497f}{}\label{synthimage_8c_a34b6524dbaca7869a0eb6abf9b26497f}
+
+\begin{DoxyCompactList}\small\item\em 1 microarcsec in degrees \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{synthimage_8c_ab758106bbf002d724d4cea6bd99922cf}{print\+Error\+Synthimage} (char errmsg\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Prints an error message. \end{DoxyCompactList}\item 
+void \hyperlink{synthimage_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{printhelp} (void)
+\begin{DoxyCompactList}\small\item\em Prints a help message when no other arguments are given. \end{DoxyCompactList}\item 
+int \hyperlink{synthimage_8c_a2f5767ff62f241a6fff05a99af017d89}{verboseinput} (char $\ast$out\+File\+Name, int $\ast$Npixel, double $\ast$pixel\+Size, char $\ast$model, int $\ast$model\+Number, char $\ast$paramstring, double param\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Asks for user input for all the options of this command. \end{DoxyCompactList}\item 
+int \hyperlink{synthimage_8c_af3df2a43fcde84e272a27ea1b216ff10}{parse} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$Npixel, double $\ast$pixel\+Size, char $\ast$model, char $\ast$paramstring)
+\begin{DoxyCompactList}\small\item\em Parses the command line for options. \end{DoxyCompactList}\item 
+int \hyperlink{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Creates a synthetic static image based on a model. 
+
+This program creates a synthetic static square image from a model and stores the result in an output F\+I\+TS file.
+
+Use\+: synthimage \mbox{[}-\/sv\mbox{]} -\/p Npixels -\/c size -\/m modelname -\/d param1,param2,... filename
+
+The required option is\+:
+\begin{DoxyItemize}
+\item \char`\"{}filename\char`\"{}\+: sets the output image filename (F\+I\+TS)
+\end{DoxyItemize}
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/p Npixels\char`\"{}\+: sets the number of image pixels per dimension (default 512)
+\item \char`\"{}-\/c size\char`\"{}\+: physical dimension of each pixel in microarcsec (default 1.\+0)
+\item \char`\"{}-\/m modelname\char`\"{}\+: the name of the model to be used (default \char`\"{}gauss\char`\"{})
+\item \char`\"{}-\/d param1,param2,...\char`\"{}\+: the values of the various model parameters (separated by commas, with no spaces between them or in quotes) (default 1,0.\+0,0.\+0,20.\+0,20.\+0)
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything and uses defaults
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\end{DoxyItemize}
+
+If no options are given, it prints a help message
+
+Examples\+:
+
+
+\begin{DoxyItemize}
+\item synthimage -\/p 512 -\/c 1.\+0 -\/m gauss -\/d 1,0.,0.,10.\+0,2.\+0 image.\+fits
+\end{DoxyItemize}
+
+Creates a synthetic image with 512 pixels along its side, with each pixel having a physical dimension of 1 microarcsec. The image is created from a gaussian model, with one gaussian component, centered at (0.\+0,0.\+0) microarcsec from the center of the image and with standard deviation equal to 10.\+0 and 2.\+0 microarcsec along the x-\/ and y-\/ orientations.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 12, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000023}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000023}{Todo}]Nothing to do\end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{synthimage.\+c@{synthimage.\+c}!main@{main}}
+\index{main@{main}!synthimage.\+c@{synthimage.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Main program. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+Nothing 
+\end{DoxyPrecond}
+\index{synthimage.\+c@{synthimage.\+c}!parse@{parse}}
+\index{parse@{parse}!synthimage.\+c@{synthimage.\+c}}
+\subsubsection[{\texorpdfstring{parse(int argc, char $\ast$argv[], char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$\+Npixel, double $\ast$pixel\+Size, char $\ast$model, char $\ast$paramstring)}{parse(int argc, char *argv[], char *outFileName, int *vmode, int *Npixel, double *pixelSize, char *model, char *paramstring)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{out\+File\+Name, }
+\item[{int $\ast$}]{vmode, }
+\item[{int $\ast$}]{Npixel, }
+\item[{double $\ast$}]{pixel\+Size, }
+\item[{char $\ast$}]{model, }
+\item[{char $\ast$}]{paramstring}
+\end{DoxyParamCaption}
+)}\hypertarget{synthimage_8c_af3df2a43fcde84e272a27ea1b216ff10}{}\label{synthimage_8c_af3df2a43fcde84e272a27ea1b216ff10}
+
+
+Parses the command line for options. 
+
+Parses the command line for options. If no options are given, it prints a help message
+
+The required options are\+:
+\begin{DoxyItemize}
+\item $<$filename$>$\+: sets the input image filename (F\+I\+TS)
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/p Npixels\char`\"{}\+: sets the number of image pixels per dimension (default 512)
+\item \char`\"{}-\/c size\char`\"{}\+: physical dimension of each pixel in microarcsec (default 1.\+0)
+\item \char`\"{}-\/m modelname\char`\"{}\+: the name of the model to be used (default \char`\"{}gauss\char`\"{})
+\item \char`\"{}-\/d param1,param2,...\char`\"{}\+: the values of the various model parameters (separated by commas, with no spaces between them or in quotes) (default 1,0.\+0,0.\+0,20.\+0,20.\+0)
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything and uses defaults
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\end{DoxyItemize}
+
+If no options are given, it prints a help message
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & an int (as is piped from the unix prompt)\\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & an array of strings (as is piped from the unix prompt)\\
+\hline
+{\em $\ast$out\+File\+Name} & a string which provides and returns the output filename\\
+\hline
+{\em $\ast$vmode} & an int with a flag for the chosen verbose mode (0\+:silent, 1\+: normal, 2\+: verbose)\\
+\hline
+{\em $\ast$\+Npixel} & an intereger returning the number of pixels per dimension\\
+\hline
+{\em $\ast$pixel\+Size} & a double returning the size of each pixel in microarcsec\\
+\hline
+{\em $\ast$model} & a string returning the model name\\
+\hline
+{\em $\ast$model\+Number} & an integer returing a number assigned to the particular model for fast referencing\\
+\hline
+{\em $\ast$paramstring} & a string of parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns zero if successful, 1 if not 
+\end{DoxyReturn}
+\index{synthimage.\+c@{synthimage.\+c}!print\+Error\+Synthimage@{print\+Error\+Synthimage}}
+\index{print\+Error\+Synthimage@{print\+Error\+Synthimage}!synthimage.\+c@{synthimage.\+c}}
+\subsubsection[{\texorpdfstring{print\+Error\+Synthimage(char errmsg[])}{printErrorSynthimage(char errmsg[])}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Error\+Synthimage (
+\begin{DoxyParamCaption}
+\item[{char}]{errmsg\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{synthimage_8c_ab758106bbf002d724d4cea6bd99922cf}{}\label{synthimage_8c_ab758106bbf002d724d4cea6bd99922cf}
+
+
+Prints an error message. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 12, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em errmsg\mbox{[}$\,$\mbox{]}} & a string with the error message to be printed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{synthimage.\+c@{synthimage.\+c}!printhelp@{printhelp}}
+\index{printhelp@{printhelp}!synthimage.\+c@{synthimage.\+c}}
+\subsubsection[{\texorpdfstring{printhelp(void)}{printhelp(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void printhelp (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{synthimage_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{}\label{synthimage_8c_acece0e4ab903f94d4adbd6c7e32b3efb}
+
+
+Prints a help message when no other arguments are given. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{synthimage_8c_af3df2a43fcde84e272a27ea1b216ff10}{parse()} and from \hyperlink{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{synthimage.\+c@{synthimage.\+c}!verboseinput@{verboseinput}}
+\index{verboseinput@{verboseinput}!synthimage.\+c@{synthimage.\+c}}
+\subsubsection[{\texorpdfstring{verboseinput(char $\ast$out\+File\+Name, int $\ast$\+Npixel, double $\ast$pixel\+Size, char $\ast$model, int $\ast$model\+Number, char $\ast$paramstring, double param[])}{verboseinput(char *outFileName, int *Npixel, double *pixelSize, char *model, int *modelNumber, char *paramstring, double param[])}}]{\setlength{\rightskip}{0pt plus 5cm}int verboseinput (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{out\+File\+Name, }
+\item[{int $\ast$}]{Npixel, }
+\item[{double $\ast$}]{pixel\+Size, }
+\item[{char $\ast$}]{model, }
+\item[{int $\ast$}]{model\+Number, }
+\item[{char $\ast$}]{paramstring, }
+\item[{double}]{param\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{synthimage_8c_a2f5767ff62f241a6fff05a99af017d89}{}\label{synthimage_8c_a2f5767ff62f241a6fff05a99af017d89}
+
+
+Asks for user input for all the options of this command. 
+
+It asks the user to input directly all the possible options that one can give in this command. It is called from the main function if the \textquotesingle{}-\/v\textquotesingle{} option is given as an argument.
+
+When each option is presented, the default value or the value that was passed as an argument is displayed. If the user hits return, then that value remains. If the user provides a valid answer, it replaces the value for that option.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 12, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{synthimage_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$out\+File\+Name} & a string which provides and returns the output filename\\
+\hline
+{\em $\ast$\+Npixel} & an intereger returning the number of pixels per dimension\\
+\hline
+{\em $\ast$pixel\+Size} & a double returning the size of each pixel in microarcsec\\
+\hline
+{\em $\ast$model} & a string returning the model name\\
+\hline
+{\em $\ast$model\+Number} & an integer returing a number assigned to the particular model for fast referencing\\
+\hline
+{\em $\ast$paramstring} & a string of parameters\\
+\hline
+{\em param\mbox{[}$\,$\mbox{]}} & returns the array of model parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns zero if successful, 1 if not 
+\end{DoxyReturn}

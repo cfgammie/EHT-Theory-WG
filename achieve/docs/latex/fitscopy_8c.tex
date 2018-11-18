@@ -1,0 +1,70 @@
+\hypertarget{fitscopy_8c}{}\section{Fits/fitscopy.c File Reference}
+\label{fitscopy_8c}\index{Fits/fitscopy.\+c@{Fits/fitscopy.\+c}}
+
+
+Copies on image file to another, while applying complex filtering methods.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{fitscopy_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{fitscopy_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Copies on image file to another, while applying complex filtering methods. 
+
+To use\+: fitscopy infile\mbox{[}ext\mbox{]}\mbox{[}filters\mbox{]} outfile
+
+This seemingly simple program can apply complex filtering methods which transform the input file as it is copied. For example, it can select a subimage out of a larger image, select rows in a table based on a logical expression, create new table columns or modify the values in existing columns, and filter tables based on time (using G\+TI extensions) or on spatial position (using spatial region files). See the Extended File Name syntax page for more examples of the filtering syntax, and refer to the C\+F\+I\+T\+S\+IO User\textquotesingle{}s Guide for a complete description. Note that in these examples it is often necessary to enclose the input filename in single quote characters on the Unix command line if the name contains special characters such as \textquotesingle{}\mbox{[}\textquotesingle{} or \textquotesingle{}$\ast$\textquotesingle{}.
+
+E\+X\+A\+M\+P\+L\+ES
+
+
+\begin{DoxyItemize}
+\item fitscopy in.\+fit out.\+fit -\/ simple file copy
+\item fitscopy in.\+fit \textbackslash{}!out.fit -\/ overwrite out.\+fit file
+\end{DoxyItemize}
+
+(In Unix, the \textquotesingle{}!\textquotesingle{} must be preceded by a \textquotesingle{}\textbackslash{}\textquotesingle{} on the command line)
+
+
+\begin{DoxyItemize}
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}11\+:50,21\+:50\mbox{]}\textquotesingle{} out.\+fit -\/ copy 40x30 pixel subimage
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}-\/$\ast$,$\ast$\mbox{]}\textquotesingle{} out.\+fit -\/ mirror reverse the image
+\item fitscopy \textquotesingle{}stdin\mbox{[}11\+:50,21\+:60\mbox{]}\textquotesingle{} stdout -\/ piped subimage
+\item fitscopy iniraf.\+imh out.\+fit -\/ convert I\+R\+AF image to F\+I\+TS
+\item fitscopy \textquotesingle{}in.\+dat\mbox{[}i512,512\mbox{]}\textquotesingle{} out.\+fit -\/ binary file to F\+I\+TS
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}evt\mbox{]}\mbox{[}pi$>$35\mbox{]}\textquotesingle{} out.\+fit -\/ copy rows which have pi$>$35
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}2\mbox{]}\mbox{[}bin X,Y\mbox{]}\textquotesingle{} out.\+fit -\/ bin X,Y cols to make image
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}evt\mbox{]}\mbox{[}col Xc=3.$\ast$X\mbox{]}\textquotesingle{} out.\+fit -\/ create new Xc column
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}evt\mbox{]}\mbox{[}gtifilter()\mbox{]}\textquotesingle{} out.\+fit -\/ apply G\+TI time filter
+\item fitscopy \textquotesingle{}in.\+fit\mbox{[}2\mbox{]}\mbox{[}regfilter(\char`\"{}pow.\+reg\char`\"{})\mbox{]}\textquotesingle{} out.\+fit -\/ region filter
+\end{DoxyItemize}
+
+The program itself is almost trivial, with just 6 lines of code required to open the input file, create the empty output file, copy each H\+DU from the input file to the output file, then close the 2 files. (See a listing of \hyperlink{fitscopy_8c}{fitscopy.\+c}).
+
+Version 1.\+0\+: September 29, 2017; as is
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis (updated from \href{https://heasarc.gsfc.nasa.gov/docs/software/fitsio/cexamples.html}{\tt https\+://heasarc.\+gsfc.\+nasa.\+gov/docs/software/fitsio/cexamples.\+html})
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 29, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000001}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+no warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]nothing left\end{DoxyRefDesc}

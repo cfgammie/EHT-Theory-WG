@@ -1,0 +1,160 @@
+\hypertarget{read_u_v_8c}{}\section{O\+L\+D/read\+UV.c File Reference}
+\label{read_u_v_8c}\index{O\+L\+D/read\+U\+V.\+c@{O\+L\+D/read\+U\+V.\+c}}
+{\ttfamily \#include \char`\"{}definitions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{read_u_v_8c_a378ec6e3232f257dafc5d24a76afc932}{read\+U\+Vmodel} (char \hyperlink{beam_8c_a5dcf967dede1aeb46c1bcd977a21ba10}{filename}\mbox{[}$\,$\mbox{]}, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Amp\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]}, double Vis\+Phase\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Reads visibilities on the u-\/v plane from the external file \char`\"{}filename\char`\"{}. \end{DoxyCompactList}\item 
+double \hyperlink{read_u_v_8c_ae4172c6d3b49f74984a30fe7c2427d9c}{interp\+U\+Vamp} (double u, double v, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Amp\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Returns the visibility amplitude at a given (u,v) point by interpolating the input grid. \end{DoxyCompactList}\item 
+double \hyperlink{read_u_v_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}{interp\+U\+Vphase} (double u, double v, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Phase\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Returns the visibility phase at a given (u,v) point by interpolating the input grid. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{read\+U\+V.\+c@{read\+U\+V.\+c}!interp\+U\+Vamp@{interp\+U\+Vamp}}
+\index{interp\+U\+Vamp@{interp\+U\+Vamp}!read\+U\+V.\+c@{read\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{interp\+U\+Vamp(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double Vis\+Amp[Nu\+Max][Nv\+Max])}{interpUVamp(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double VisAmp[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}double interp\+U\+Vamp (
+\begin{DoxyParamCaption}
+\item[{double}]{u, }
+\item[{double}]{v, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Amp\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{read_u_v_8c_ae4172c6d3b49f74984a30fe7c2427d9c}{}\label{read_u_v_8c_ae4172c6d3b49f74984a30fe7c2427d9c}
+
+
+Returns the visibility amplitude at a given (u,v) point by interpolating the input grid. 
+
+Given an (Nu,Nv) grid of visibility amplitudes Vis\+Amp\mbox{[}\mbox{]}\mbox{[}\mbox{]} with coordinates stored in Uco\mbox{[}\mbox{]} and Vco\mbox{[}\mbox{]}, the routine performs a linear interpolation using the nearest neigbohrs to calculate the visibility amplitude at an arbitrary point. The (u,v) grid is assumed to be equidistant in both directions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & a double with the u coordinate for which the amplitude is needed \\
+\hline
+{\em v} & a double with the v coordinate for which the amplitude is needed \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Amp\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility amplitudes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the visibility amplitude at the input (u,v) coordinates; it returns error code -\/99999 if (u,v) is out of bounds 
+\end{DoxyReturn}
+\index{read\+U\+V.\+c@{read\+U\+V.\+c}!interp\+U\+Vphase@{interp\+U\+Vphase}}
+\index{interp\+U\+Vphase@{interp\+U\+Vphase}!read\+U\+V.\+c@{read\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{interp\+U\+Vphase(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double Vis\+Phase[Nu\+Max][Nv\+Max])}{interpUVphase(double u, double v, int Nu, int Nv, double Uco[], double Vco[], double VisPhase[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}double interp\+U\+Vphase (
+\begin{DoxyParamCaption}
+\item[{double}]{u, }
+\item[{double}]{v, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Phase\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{read_u_v_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}{}\label{read_u_v_8c_a07600ae88a3a67a6cf1f5eb1bb4e74af}
+
+
+Returns the visibility phase at a given (u,v) point by interpolating the input grid. 
+
+Given an (Nu,Nv) grid of visibility amplitudes Vis\+Phase\mbox{[}\mbox{]}\mbox{[}\mbox{]} with coordinates stored in Uco\mbox{[}\mbox{]} and Vco\mbox{[}\mbox{]}, the routine performs a linear interpolation using the nearest neigbohrs to calculate the visibility phase at an arbitrary point. The (u,v) grid is assumed to be equidistant in both directions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 12, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & a double with the u coordinate for which the amplitude is needed \\
+\hline
+{\em v} & a double with the v coordinate for which the amplitude is needed \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Phase\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the visibility amplitudes\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the visibility amplitude at the input (u,v) coordinates; it returns error code E\+R\+R\+O\+R\+\_\+\+B\+O\+U\+N\+DS if (u,v) is out of bounds 
+\end{DoxyReturn}
+\index{read\+U\+V.\+c@{read\+U\+V.\+c}!read\+U\+Vmodel@{read\+U\+Vmodel}}
+\index{read\+U\+Vmodel@{read\+U\+Vmodel}!read\+U\+V.\+c@{read\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{read\+U\+Vmodel(char filename[], int Nu, int Nv, double Uco[], double Vco[], double Vis\+Amp[Nu\+Max][Nv\+Max], double Vis\+Phase[Nu\+Max][Nv\+Max])}{readUVmodel(char filename[], int Nu, int Nv, double Uco[], double Vco[], double VisAmp[NuMax][NvMax], double VisPhase[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+U\+Vmodel (
+\begin{DoxyParamCaption}
+\item[{char}]{filename\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Amp\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}, }
+\item[{double}]{Vis\+Phase\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{read_u_v_8c_a378ec6e3232f257dafc5d24a76afc932}{}\label{read_u_v_8c_a378ec6e3232f257dafc5d24a76afc932}
+
+
+Reads visibilities on the u-\/v plane from the external file \char`\"{}filename\char`\"{}. 
+
+The file is assumed to have 4 A\+S\+C\+II columns, separated by white spaces\+: U coordinate, V coordinate, Visibility Amplitude, Visibility Phase. The rows are assumed to be organized in such a way that for each value of the U coordinate, all V coordinates are listed sequentially. The grid is assumed to be equidistant along both directions, and this is checked during the reading. On return all columns are stored in the relevant arrays in the argument list.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+January 16, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em filename\mbox{[}$\,$\mbox{]}} & a char array with the name of the file to be read \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array in which the u-\/coordinates are stored on return \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array in which the v-\/coordinates are stored on return \\
+\hline
+{\em Vis\+Am\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the visibility amplitudes are stored on return \\
+\hline
+{\em Vis\+Phase\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the visibility phases are stored on return\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error in reading the file 
+\end{DoxyReturn}

@@ -1,0 +1,55 @@
+\hypertarget{modhead_8c}{}\section{Fits/modhead.c File Reference}
+\label{modhead_8c}\index{Fits/modhead.\+c@{Fits/modhead.\+c}}
+
+
+Writes or Modifies the value of a header keyword.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{modhead_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{modhead_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Writes or Modifies the value of a header keyword. 
+
+Use\+: modhead infile\mbox{[}ext\mbox{]} keyword newvalue
+
+This program can write or modify the value of a header keyword. If the 4th \textquotesingle{}newvalue\textquotesingle{} parameter is not specified then the program just prints out the current value of the keyword. Otherwise, it replaces the value of the keyword if it exists, or writes a new keyword if it doesn\textquotesingle{}t exist.
+
+Examples\+:
+
+
+\begin{DoxyItemize}
+\item modhead file.\+fits dec -\/ list the value of the D\+EC keyword
+\item modhead file.\+fits dec 30.\+0 -\/ write or modify the D\+EC keyword
+\end{DoxyItemize}
+
+This program opens the input file and attempts to read the specified keyword. If the keyword exists, the current value is printed out. If the 4th \textquotesingle{}newvalue\textquotesingle{} argument is specified then the program first checks to make sure that we are not attempting to modify a structural keyword (like N\+A\+X\+IS) which could corrupt the file format. It then constructs a new keyword record string with the new value and overwrites or appends that record to the header.
+
+Version 1.\+0\+: September 29, 2017 (DP)
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis (updated from \href{https://heasarc.gsfc.nasa.gov/docs/software/fitsio/cexamples.html}{\tt https\+://heasarc.\+gsfc.\+nasa.\+gov/docs/software/fitsio/cexamples.\+html})
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 29, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000008}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+no warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000008}{Todo}]nothing left\end{DoxyRefDesc}

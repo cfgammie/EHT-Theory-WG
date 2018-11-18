@@ -1,0 +1,366 @@
+\hypertarget{models_image_8c}{}\section{models\+Image.\+c File Reference}
+\label{models_image_8c}\index{models\+Image.\+c@{models\+Image.\+c}}
+
+
+Analytic models for images.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{models_image_8c_ac1535592e39e7edf0cafbd5e695ea622}{M\+A\+X\+C\+H\+AR}~80\hypertarget{models_image_8c_ac1535592e39e7edf0cafbd5e695ea622}{}\label{models_image_8c_ac1535592e39e7edf0cafbd5e695ea622}
+
+\begin{DoxyCompactList}\small\item\em maximum number of characters for strings \end{DoxyCompactList}\item 
+\#define \hyperlink{models_image_8c_a1672a7083cc5915b0beb351893da0d8a}{M\+A\+X\+P\+A\+R\+AM}~20\hypertarget{models_image_8c_a1672a7083cc5915b0beb351893da0d8a}{}\label{models_image_8c_a1672a7083cc5915b0beb351893da0d8a}
+
+\begin{DoxyCompactList}\small\item\em maximum number of model parameters \end{DoxyCompactList}\item 
+\#define \hyperlink{models_image_8c_a7c90b1714669143a0d1ac607c4a607e3}{N\+M\+O\+D\+E\+LS}~2\hypertarget{models_image_8c_a7c90b1714669143a0d1ac607c4a607e3}{}\label{models_image_8c_a7c90b1714669143a0d1ac607c4a607e3}
+
+\begin{DoxyCompactList}\small\item\em number of analytic models \end{DoxyCompactList}\item 
+\#define \hyperlink{models_image_8c_a8d23feea868a983c8c2b661e1e16972f}{R\+ED}~\char`\"{}\textbackslash{}x1B\mbox{[}31m\char`\"{}\hypertarget{models_image_8c_a8d23feea868a983c8c2b661e1e16972f}{}\label{models_image_8c_a8d23feea868a983c8c2b661e1e16972f}
+
+\begin{DoxyCompactList}\small\item\em color R\+ED for error output \end{DoxyCompactList}\item 
+\#define \hyperlink{models_image_8c_a5bc410b99375860e54cee3f4bfe4b08e}{R\+E\+S\+E\+T\+C\+O\+L\+OR}~\char`\"{}\textbackslash{}x1B\mbox{[}0m\char`\"{}\hypertarget{models_image_8c_a5bc410b99375860e54cee3f4bfe4b08e}{}\label{models_image_8c_a5bc410b99375860e54cee3f4bfe4b08e}
+
+\begin{DoxyCompactList}\small\item\em color to reset to normal \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{models_image_8c_aa4e5cae70a2fc906fa95ae2fff5cb1df}{image\+Model\+Check} (char $\ast$model, int $\ast$model\+Number)
+\begin{DoxyCompactList}\small\item\em Checks for validity of input model. \end{DoxyCompactList}\item 
+int \hyperlink{models_image_8c_a25950b84a30887bf69440c6c451d1987}{image\+Param\+Check} (int model\+Number, char $\ast$paramstring, double param\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Checks for validity of input model parameters. \end{DoxyCompactList}\item 
+void \hyperlink{models_image_8c_a33ed92835088dfeddb81b24c27eba14a}{print\+Model\+Param} (int model\+Number, int param\+Number)
+\begin{DoxyCompactList}\small\item\em Prints the description of a given parameter of a given model. \end{DoxyCompactList}\item 
+int \hyperlink{models_image_8c_a5a8eeec26659e6a428d26a0390d4a60b}{N\+Model\+Param} (int model\+Number)
+\begin{DoxyCompactList}\small\item\em Prints the description of a given parameter of a given model. \end{DoxyCompactList}\item 
+int \hyperlink{models_image_8c_ad440531ce3c9cd6d051b86c944633a61}{gauss\+Model} (int Npixel, double pixel\+Size, double param\mbox{[}$\,$\mbox{]}, double $\ast$Image)
+\begin{DoxyCompactList}\small\item\em Fills a double array with the brigtness of a multi-\/\+Gaussian analytic model. \end{DoxyCompactList}\item 
+int \hyperlink{models_image_8c_a77465398270a1fc8b72b992dc2b2c73b}{crescent\+Model} (int Npixel, double pixel\+Size, double param\mbox{[}$\,$\mbox{]}, double $\ast$Image)
+\begin{DoxyCompactList}\small\item\em Fills a double array with the brigtness of an analytic crescent model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{models_image_8c_a1e09a5a7b250b94dd7dcca6839c03f53}{model\+Names} \mbox{[}\hyperlink{models_image_8c_a7c90b1714669143a0d1ac607c4a607e3}{N\+M\+O\+D\+E\+LS}\mbox{]}\mbox{[}\hyperlink{synthimage_8c_ac1535592e39e7edf0cafbd5e695ea622}{M\+A\+X\+C\+H\+AR}\mbox{]} =\{\char`\"{}gauss\char`\"{},\char`\"{}crescent\char`\"{}\}\hypertarget{models_image_8c_a1e09a5a7b250b94dd7dcca6839c03f53}{}\label{models_image_8c_a1e09a5a7b250b94dd7dcca6839c03f53}
+
+\begin{DoxyCompactList}\small\item\em names of known analytic models \end{DoxyCompactList}\item 
+int \hyperlink{models_image_8c_a40e67ce8a9f5a3b880eccd15c6cbdaa6}{models\+N\+Param} \mbox{[}\hyperlink{models_image_8c_a7c90b1714669143a0d1ac607c4a607e3}{N\+M\+O\+D\+E\+LS}\mbox{]} =\{6,7\}\hypertarget{models_image_8c_a40e67ce8a9f5a3b880eccd15c6cbdaa6}{}\label{models_image_8c_a40e67ce8a9f5a3b880eccd15c6cbdaa6}
+
+\begin{DoxyCompactList}\small\item\em number of required parameters for each component of each model \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Analytic models for images. 
+
+A set of functions to calculate the image brightness of a number of analytic models.
+
+In this version, it contains 2 analytic models\+:
+
+
+\begin{DoxyItemize}
+\item gauss
+\end{DoxyItemize}
+
+A multi-\/gaussian model. \[ I(x,y)=\sum_{i=1}^{N}\frac{F_i}{\sqrt{2\pi \sigma_{x,i}^2\sigma_{y,i}^2}} \exp\left[-\frac{\left(x^\prime \sin\theta_i+y^\prime \cos\theta_i\right)^2}{\sigma_{x,i}^2} -\frac{\left(x^\prime \cos\theta_i-y^\prime \sin\theta_i\right)^2}{\sigma_{y,i}^2} \right] \] where $x^\prime=x-x_{0,i}$ and $y^\prime=y-y_{0,i}$.
+
+The first model parameter is the number of Gaussian components.
+
+The second to seventh model paramerts are the total flux $F_i$, the coordinates $x_{0,i}$ and $y_{0,1}$ of its center, the dispersions $\sigma_{x,i}$ and $\sigma_{y,i}$ along the major and minor axes for the first component, and the orientation of the major axis $\theta_i$ in radians E of N (i.\+e., measured from the vertical axis).
+
+If more than one components are present, the same list of parameters is repeated for each model.
+
+There are no requirements for the model parameters. In principle, the total flux may be a negative number to allow for modeling subtracted components.
+
+Because of the limit of 20 total model parameters, up to 3 gaussian components can be accommodated.
+
+
+\begin{DoxyItemize}
+\item crescent
+\end{DoxyItemize}
+
+The crescent model of \href{http://adsabs.harvard.edu/abs/2013MNRAS.434..765K}{\tt Kmaruddin \& Dexter}, 2013, M\+N\+R\+AS 414, 765.
+
+The functional form of the model corresponds to the subtraction of two unit disks.
+
+The first model parameter is the number of crescent components.
+
+The second to seventh model paramerts are the total flux $F_i$, the coordinates $x_{0,i}$ and $y_{0,i}$ of its center, the overall size $R$ of the crescent, its relative thickenss $\psi$, the degree of symmetry $\tau$ and its orientation $\phi$.
+
+Using this parameters, the crescent is calculated by subtracting two unit desks. The outer disk is centered at $(x_{0,i},y_{0,i})$ and has a radius of $R_p=R$. The inner disk is centered at $(x_{0,i}+a,y_{0,i}+b)$, where \[ a=R(1-\tau)\psi \sin\phi \] and \[ b=R(1-\tau)\psi \cos\phi \] and has a radius of \[ R_n=R(1-\psi)\;. \]
+
+The brightness of each pixel that is \char`\"{}on\char`\"{} is \[ V_0=\frac{F_i}{\pi R^2 \psi(2-\psi)}\;. \]
+
+If more than one components are present, the same list of parameters is repeated for each model.
+
+The requirements on the parameters are\+: $F>0$, $0<\psi\le 1$, $0\le\tau<1$.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 14, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000022}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000022}{Todo}]Nothing left\end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{models\+Image.\+c@{models\+Image.\+c}!crescent\+Model@{crescent\+Model}}
+\index{crescent\+Model@{crescent\+Model}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{crescent\+Model(int Npixel, double pixel\+Size, double param[], double $\ast$\+Image)}{crescentModel(int Npixel, double pixelSize, double param[], double *Image)}}]{\setlength{\rightskip}{0pt plus 5cm}int crescent\+Model (
+\begin{DoxyParamCaption}
+\item[{int}]{Npixel, }
+\item[{double}]{pixel\+Size, }
+\item[{double}]{param\mbox{[}$\,$\mbox{]}, }
+\item[{double $\ast$}]{Image}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_a77465398270a1fc8b72b992dc2b2c73b}{}\label{models_image_8c_a77465398270a1fc8b72b992dc2b2c73b}
+
+
+Fills a double array with the brigtness of an analytic crescent model. 
+
+Given a number of pixels Npixel, the physical size of each pixel pixel\+Size and an array of model parameters param\mbox{[}\mbox{]}, it fills the Npixel$\ast$\+Npixel double array Image\mbox{[}\mbox{]} with the brightness of the crescent mode of \href{http://adsabs.harvard.edu/abs/2013MNRAS.434..765K}{\tt Kmaruddin \& Dexter}, 2013, M\+N\+R\+AS 414, 765.
+
+The functional form of the model corresponds to the subtraction of two unit disks.
+
+The first model parameter is the number of crescent components.
+
+The second to seventh model paramerts are the total flux $F_i$, the coordinates $x_{0,i}$ and $y_{0,i}$ of its center, the overall size $R$ of the crescent, its relative thickenss $\psi$, the degree of symmetry $\tau$ and its orientation $\phi$.
+
+Using this parameters, the crescent is calculated by subtracting two unit desks. The outer disk is centered at $(x_{0,i},y_{0,i})$ and has a radius of $R_p=R$. The inner disk is centered at $(x_{0,i}+a,y_{0,i}+b)$, where \[ a=R(1-\tau)\psi \sin\phi \] and \[ b=R(1-\tau)\psi \cos\phi \] and has a radius of \[ R_n=R(1-\psi)\;. \]
+
+The brightness of each pixel that is \char`\"{}on\char`\"{} is \[ V_0=\frac{F_i}{\pi R^2 \psi(2-\psi)}\;. \]
+
+If more than one components are present, the same list of parameters is repeated for each model.
+
+The requirements on the parameters are\+: $F>0$, $0<\psi\le 1$, $0\le\tau<1$.
+
+Because of the limit of 20 total model parameters, up to 2 crescent components can be accommmodated.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 14, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Npixel} & an int with the number of pixels per dimension of the image \\
+\hline
+{\em pixel\+Size} & a double with the physical size of the pixel \\
+\hline
+{\em param\mbox{[}$\,$\mbox{]}} & a double array with the parameters of the model \\
+\hline
+{\em $\ast$\+Image} & a pointer to a double array, which will be filled with the brightness of the multi-\/\+Gaussian image.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything was ok; the number of components with invalid parameters, if there were any 
+\end{DoxyReturn}
+\index{models\+Image.\+c@{models\+Image.\+c}!gauss\+Model@{gauss\+Model}}
+\index{gauss\+Model@{gauss\+Model}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{gauss\+Model(int Npixel, double pixel\+Size, double param[], double $\ast$\+Image)}{gaussModel(int Npixel, double pixelSize, double param[], double *Image)}}]{\setlength{\rightskip}{0pt plus 5cm}int gauss\+Model (
+\begin{DoxyParamCaption}
+\item[{int}]{Npixel, }
+\item[{double}]{pixel\+Size, }
+\item[{double}]{param\mbox{[}$\,$\mbox{]}, }
+\item[{double $\ast$}]{Image}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_ad440531ce3c9cd6d051b86c944633a61}{}\label{models_image_8c_ad440531ce3c9cd6d051b86c944633a61}
+
+
+Fills a double array with the brigtness of a multi-\/\+Gaussian analytic model. 
+
+Given a number of pixels Npixel, the physical size of each pixel pixel\+Size and an array of model parameters param\mbox{[}\mbox{]}, it fills the Npixel$\ast$\+Npixel double array Image\mbox{[}\mbox{]} with the brightness of a multi Gaussian model.
+
+The functional form of the model is \[ I(x,y)=\sum_{i=1}^{N}\frac{F_i}{\sqrt{2\pi \sigma_{x,i}^2\sigma_{y,i}^2}} \exp\left[-\frac{\left(x^\prime \sin\theta_i+y^\prime \cos\theta_i\right)^2}{\sigma_{x,i}^2} -\frac{\left(x^\prime \cos\theta_i-y^\prime \sin\theta_i\right)^2}{\sigma_{y,i}^2} \right] \] where $x^\prime=x-x_{0,i}$ and $y^\prime=y-y_{0,i}$.
+
+The first model parameter is the number of Gaussian components.
+
+The second to seventh model paramerts are the total flux $F_i$, the coordinates $x_{0,i}$ and $y_{0,i}$ of its center, the dispersions $\sigma_{x,i}$ and $\sigma_{y,i}$ along the major and minor axes for the first component, and the orientation of the major axis $\theta_i$ in degrees E of N (i.\+e., measured from the vertical axis).
+
+If more than one components are present, the same list of parameters is repeated for each model.
+
+There are no requirements for the model parameters. In principle, the total flux may be a negative number to allow for modeling subtracted components.
+
+Because of the limit of 20 total model parameters, up to 3 gaussian components can be accommodated. \begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 14, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Npixel} & an int with the number of pixels per dimension of the image \\
+\hline
+{\em pixel\+Size} & a double with the physical size of the pixel \\
+\hline
+{\em param\mbox{[}$\,$\mbox{]}} & a double array with the parameters of the model \\
+\hline
+{\em $\ast$\+Image} & a pointer to a double array, which will be filled with the brightness of the multi-\/\+Gaussian image.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything was ok; for now, it always returns zero 
+\end{DoxyReturn}
+\index{models\+Image.\+c@{models\+Image.\+c}!image\+Model\+Check@{image\+Model\+Check}}
+\index{image\+Model\+Check@{image\+Model\+Check}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{image\+Model\+Check(char $\ast$model, int $\ast$model\+Number)}{imageModelCheck(char *model, int *modelNumber)}}]{\setlength{\rightskip}{0pt plus 5cm}int image\+Model\+Check (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{model, }
+\item[{int $\ast$}]{model\+Number}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_aa4e5cae70a2fc906fa95ae2fff5cb1df}{}\label{models_image_8c_aa4e5cae70a2fc906fa95ae2fff5cb1df}
+
+
+Checks for validity of input model. 
+
+Given a model name (in \char`\"{}model\char`\"{}) it checks to see if the model is valid.
+
+For future reference, it returns an integer model\+Number for that model, with the first model being model\+Number=0.
+
+The number of known models is stored in the constant N\+M\+O\+D\+E\+LS. The names of the models are stored in the global array model\+Names\mbox{[}N\+M\+O\+D\+E\+LS\mbox{]}. The integer that corresponds to a particular model is the index of that model name in the array model\+Names;
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 14, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em model} & a string with the model name \\
+\hline
+{\em model\+Number} & an int that, on returrn, gives the integer model number\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything was ok; 1 if there was a problem 
+\end{DoxyReturn}
+\index{models\+Image.\+c@{models\+Image.\+c}!image\+Param\+Check@{image\+Param\+Check}}
+\index{image\+Param\+Check@{image\+Param\+Check}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{image\+Param\+Check(int model\+Number, char $\ast$paramstring, double param[])}{imageParamCheck(int modelNumber, char *paramstring, double param[])}}]{\setlength{\rightskip}{0pt plus 5cm}int image\+Param\+Check (
+\begin{DoxyParamCaption}
+\item[{int}]{model\+Number, }
+\item[{char $\ast$}]{paramstring, }
+\item[{double}]{param\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_a25950b84a30887bf69440c6c451d1987}{}\label{models_image_8c_a25950b84a30887bf69440c6c451d1987}
+
+
+Checks for validity of input model parameters. 
+
+Given a modelnumber (in \char`\"{}model\+Number\char`\"{}) and a string of parameters (in \char`\"{}paramstring\char`\"{}), it checks to see if the number and type of parameters are valid.
+
+Normally, the model\+Number is first identified from a string with the model name in \hyperlink{models_image_8c_aa4e5cae70a2fc906fa95ae2fff5cb1df}{image\+Model\+Check()};
+
+For future reference, it returns a double array of the parameters in param\mbox{[}\mbox{]}
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 14, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em model\+Number} & an int with the number of the model to be used \\
+\hline
+{\em paramstring\mbox{[}$\,$\mbox{]}} & a string with the parameter string of the model \\
+\hline
+{\em param\mbox{[}$\,$\mbox{]}} & a double array with the parameters of the model\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything was ok; 1 if there was a problem 
+\end{DoxyReturn}
+\index{models\+Image.\+c@{models\+Image.\+c}!N\+Model\+Param@{N\+Model\+Param}}
+\index{N\+Model\+Param@{N\+Model\+Param}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{N\+Model\+Param(int model\+Number)}{NModelParam(int modelNumber)}}]{\setlength{\rightskip}{0pt plus 5cm}int N\+Model\+Param (
+\begin{DoxyParamCaption}
+\item[{int}]{model\+Number}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_a5a8eeec26659e6a428d26a0390d4a60b}{}\label{models_image_8c_a5a8eeec26659e6a428d26a0390d4a60b}
+
+
+Prints the description of a given parameter of a given model. 
+
+Given a modelnumber (in \char`\"{}model\+Number\char`\"{}), it returns the number of model parameters that are required
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 16, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em model\+Number} & an int with the number of the model to be used (starting at 0)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+an int with the number of model parameters required by this model 
+\end{DoxyReturn}
+\index{models\+Image.\+c@{models\+Image.\+c}!print\+Model\+Param@{print\+Model\+Param}}
+\index{print\+Model\+Param@{print\+Model\+Param}!models\+Image.\+c@{models\+Image.\+c}}
+\subsubsection[{\texorpdfstring{print\+Model\+Param(int model\+Number, int param\+Number)}{printModelParam(int modelNumber, int paramNumber)}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Model\+Param (
+\begin{DoxyParamCaption}
+\item[{int}]{model\+Number, }
+\item[{int}]{param\+Number}
+\end{DoxyParamCaption}
+)}\hypertarget{models_image_8c_a33ed92835088dfeddb81b24c27eba14a}{}\label{models_image_8c_a33ed92835088dfeddb81b24c27eba14a}
+
+
+Prints the description of a given parameter of a given model. 
+
+Given a modelnumber (in \char`\"{}model\+Number\char`\"{}) and a parameter number (in \char`\"{}param\+Number\char`\"{}), it prints the description of that param\+Number, usually used in verbose inputs.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 16, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em model\+Number} & an int with the number of the model to be used (starting at 0) \\
+\hline
+{\em param\+Number} & an int with the number of the parameter to be printed (starting at 0)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Nothing 
+\end{DoxyReturn}

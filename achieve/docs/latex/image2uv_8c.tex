@@ -1,0 +1,301 @@
+\hypertarget{image2uv_8c}{}\section{image2uv.\+c File Reference}
+\label{image2uv_8c}\index{image2uv.\+c@{image2uv.\+c}}
+
+
+Converts an image to u-\/v maps (complex amplitude and phase)  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$fftw3.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{image2uv_8c_a0dc9290c9bc6e54aee211613c2331983}{D\+E\+F\+A\+U\+L\+T\+O\+U\+T\+F\+I\+L\+E\+N\+A\+ME}~\char`\"{}uvout.\+fits\char`\"{}\hypertarget{image2uv_8c_a0dc9290c9bc6e54aee211613c2331983}{}\label{image2uv_8c_a0dc9290c9bc6e54aee211613c2331983}
+
+\begin{DoxyCompactList}\small\item\em default filename for output, if -\/o option is not given \end{DoxyCompactList}\item 
+\#define \hyperlink{image2uv_8c_a4c9fdf0c7230b4e3358ada61359d528e}{V\+M\+O\+D\+E\+D\+E\+F\+A\+U\+LT}~1\hypertarget{image2uv_8c_a4c9fdf0c7230b4e3358ada61359d528e}{}\label{image2uv_8c_a4c9fdf0c7230b4e3358ada61359d528e}
+
+\begin{DoxyCompactList}\small\item\em default verbose mode \char`\"{}medium\char`\"{} \end{DoxyCompactList}\item 
+\#define \hyperlink{image2uv_8c_ac1535592e39e7edf0cafbd5e695ea622}{M\+A\+X\+C\+H\+AR}~80\hypertarget{image2uv_8c_ac1535592e39e7edf0cafbd5e695ea622}{}\label{image2uv_8c_ac1535592e39e7edf0cafbd5e695ea622}
+
+\begin{DoxyCompactList}\small\item\em maximum number of characters for strings \end{DoxyCompactList}\item 
+\#define \hyperlink{image2uv_8c_a8d23feea868a983c8c2b661e1e16972f}{R\+ED}~\char`\"{}\textbackslash{}x1B\mbox{[}31m\char`\"{}\hypertarget{image2uv_8c_a8d23feea868a983c8c2b661e1e16972f}{}\label{image2uv_8c_a8d23feea868a983c8c2b661e1e16972f}
+
+\begin{DoxyCompactList}\small\item\em color R\+ED for error output \end{DoxyCompactList}\item 
+\#define \hyperlink{image2uv_8c_a5bc410b99375860e54cee3f4bfe4b08e}{R\+E\+S\+E\+T\+C\+O\+L\+OR}~\char`\"{}\textbackslash{}x1B\mbox{[}0m\char`\"{}\hypertarget{image2uv_8c_a5bc410b99375860e54cee3f4bfe4b08e}{}\label{image2uv_8c_a5bc410b99375860e54cee3f4bfe4b08e}
+
+\begin{DoxyCompactList}\small\item\em color to reset to normal \end{DoxyCompactList}\item 
+\#define \hyperlink{image2uv_8c_a8a942582284edbacc714ddb095dd344f}{M\+I\+N\+A\+MP}~1.e-\/12\hypertarget{image2uv_8c_a8a942582284edbacc714ddb095dd344f}{}\label{image2uv_8c_a8a942582284edbacc714ddb095dd344f}
+
+\begin{DoxyCompactList}\small\item\em minimum fraction of zero baseline amplitude, below which the phase is set to zero \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{image2uv_8c_a37b830cd85a7b7e6fecc12e45daaefb5}{print\+Error\+Image2uv} (char errmsg\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Prints an error message. \end{DoxyCompactList}\item 
+void \hyperlink{image2uv_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{printhelp} (void)
+\begin{DoxyCompactList}\small\item\em Prints a help message when no other arguments are given. \end{DoxyCompactList}\item 
+void \hyperlink{image2uv_8c_af075e5864d06b4727a94ea3003d43ae1}{verboseinput} (char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$cmode, int $\ast$Npad)
+\begin{DoxyCompactList}\small\item\em Asks for user input for all the options of this command. \end{DoxyCompactList}\item 
+int \hyperlink{image2uv_8c_af056c27bab8f1de638d624ade812ba57}{parse} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, char $\ast$in\+File\+Name, char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$cmode, int $\ast$Npad)
+\begin{DoxyCompactList}\small\item\em Parses the command line for options. \end{DoxyCompactList}\item 
+int \hyperlink{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Converts an image to u-\/v maps (complex amplitude and phase) 
+
+This program reads an image stored in an input F\+I\+TS file, calculates its complex Fourier transform, and stores the resulting visibility amplitudes and phases in an output F\+I\+TS file.
+
+The dimension of the Fourier transform along each axis is the maximum of the dimension of the image along the same axis and the optional number of padding points.
+
+The output F\+I\+TS file has two H\+DU images; the first one has the visibility amplitudes and the second one has the visibility phases (in rad). The center of the Fourier transform is at grid point (starting from 1) Nx/2 and Ny/2, where Nx (or Ny) is the maximum of the dimension of the image along the horizontal (vertical) axis and the optional number of padding points.
+
+In order to avoid numerical issues, when the amplitude is smaller than a predefined fraction (M\+I\+N\+A\+MP) of the zero baseline amplitude, the phase is set to zero.
+
+Use\+: image2uv \mbox{[}-\/sv\mbox{]} \mbox{[}-\/p Npoints\mbox{]} \mbox{[}-\/c\mbox{]} \mbox{[}-\/o filename2\mbox{]} filename1
+
+The required options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}filename1\char`\"{}\+: sets the input image filename (F\+I\+TS)
+\end{DoxyItemize}
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/o filename2\char`\"{}\+: sets the output visibility filename (U\+V\+F\+I\+TS).
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything and uses defaults
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\item \char`\"{}-\/p Npoints\char`\"{}\+: pads the image to a square grid with Npoints on each side, if the current image size is smaller than Npoints, before taking the Fourier Transform
+\item \char`\"{}-\/c\char`\"{}\+: calculates the complex phases by first centering the image to its center of brightness. If this options is not given, it calculates the complex phase with respect to the geometric center of the image.
+\end{DoxyItemize}
+
+If no options are given, it prints a help message
+
+Examples\+:
+
+
+\begin{DoxyItemize}
+\item image2uv -\/o uvresults.\+out inimage.\+fits
+\end{DoxyItemize}
+
+Reads the file form inimage.\+fits and outputs the visibility amplitudes and phases into uvresults.\+out
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000012}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000012}{Todo}]Change call to F\+F\+TW to use only routines for Real data. Add error capture if-\/statements for all the read and the write commands\end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{image2uv.\+c@{image2uv.\+c}!main@{main}}
+\index{main@{main}!image2uv.\+c@{image2uv.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Main program. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+Nothing 
+\end{DoxyPrecond}
+\index{image2uv.\+c@{image2uv.\+c}!parse@{parse}}
+\index{parse@{parse}!image2uv.\+c@{image2uv.\+c}}
+\subsubsection[{\texorpdfstring{parse(int argc, char $\ast$argv[], char $\ast$in\+File\+Name, char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$cmode, int $\ast$\+Npad)}{parse(int argc, char *argv[], char *inFileName, char *outFileName, int *vmode, int *cmode, int *Npad)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{in\+File\+Name, }
+\item[{char $\ast$}]{out\+File\+Name, }
+\item[{int $\ast$}]{vmode, }
+\item[{int $\ast$}]{cmode, }
+\item[{int $\ast$}]{Npad}
+\end{DoxyParamCaption}
+)}\hypertarget{image2uv_8c_af056c27bab8f1de638d624ade812ba57}{}\label{image2uv_8c_af056c27bab8f1de638d624ade812ba57}
+
+
+Parses the command line for options. 
+
+Parses the command line for options. If no options are given, it prints a help message
+
+The required options are\+:
+\begin{DoxyItemize}
+\item $<$filename$>$\+: sets the input image filename (F\+I\+TS)
+\end{DoxyItemize}
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/o $<$filename$>$\char`\"{}\+: sets the output visibility filename (U\+V\+F\+I\+TS).
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\item \char`\"{}-\/p Npoints\char`\"{}\+: pading. It pads the image to a square grid with Npoints on each side
+\item \char`\"{}-\/c\char`\"{}\+: calculates the complex phase by first centering the image to its center of brightness.
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & an int (as is piped from the unix prompt)\\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & an array of strings (as is piped from the unix prompt)\\
+\hline
+{\em $\ast$in\+File\+Name} & a string which returns the input filename\\
+\hline
+{\em $\ast$out\+File\+Name} & a string which returns the output filename\\
+\hline
+{\em $\ast$vmode} & an int with a flag for the chosen verbose mode (0\+:silent, 1\+: normal, 2\+: verbose)\\
+\hline
+{\em $\ast$cmode} & an int with a flat for whether the F\+FT will be centered on the center of brightness\\
+\hline
+{\em $\ast$\+Npad} & an int with the number of points per dimension to which the image will be padded. It it is smaller than the number of points in the image, then the total number of points in the image will be used.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns zero if successful, 1 if not 
+\end{DoxyReturn}
+\index{image2uv.\+c@{image2uv.\+c}!print\+Error\+Image2uv@{print\+Error\+Image2uv}}
+\index{print\+Error\+Image2uv@{print\+Error\+Image2uv}!image2uv.\+c@{image2uv.\+c}}
+\subsubsection[{\texorpdfstring{print\+Error\+Image2uv(char errmsg[])}{printErrorImage2uv(char errmsg[])}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Error\+Image2uv (
+\begin{DoxyParamCaption}
+\item[{char}]{errmsg\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{image2uv_8c_a37b830cd85a7b7e6fecc12e45daaefb5}{}\label{image2uv_8c_a37b830cd85a7b7e6fecc12e45daaefb5}
+
+
+Prints an error message. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em errmsg\mbox{[}$\,$\mbox{]}} & a string with the error message to be printed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{image2uv.\+c@{image2uv.\+c}!printhelp@{printhelp}}
+\index{printhelp@{printhelp}!image2uv.\+c@{image2uv.\+c}}
+\subsubsection[{\texorpdfstring{printhelp(void)}{printhelp(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void printhelp (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{image2uv_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{}\label{image2uv_8c_acece0e4ab903f94d4adbd6c7e32b3efb}
+
+
+Prints a help message when no other arguments are given. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{image2uv_8c_af056c27bab8f1de638d624ade812ba57}{parse()} and from \hyperlink{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{image2uv.\+c@{image2uv.\+c}!verboseinput@{verboseinput}}
+\index{verboseinput@{verboseinput}!image2uv.\+c@{image2uv.\+c}}
+\subsubsection[{\texorpdfstring{verboseinput(char $\ast$out\+File\+Name, int $\ast$vmode, int $\ast$cmode, int $\ast$\+Npad)}{verboseinput(char *outFileName, int *vmode, int *cmode, int *Npad)}}]{\setlength{\rightskip}{0pt plus 5cm}void verboseinput (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{out\+File\+Name, }
+\item[{int $\ast$}]{vmode, }
+\item[{int $\ast$}]{cmode, }
+\item[{int $\ast$}]{Npad}
+\end{DoxyParamCaption}
+)}\hypertarget{image2uv_8c_af075e5864d06b4727a94ea3003d43ae1}{}\label{image2uv_8c_af075e5864d06b4727a94ea3003d43ae1}
+
+
+Asks for user input for all the options of this command. 
+
+It asks the user to input directly all the possible options that one can give in this command. It is called from the main function if the \textquotesingle{}-\/v\textquotesingle{} option is given as an argument.
+
+When each option is presented, the default value or the value that was passed as an argument is displayed. If the user hits return, then that value remains. If the user provides a valid answer, it replaces the value for that option.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 12, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{image2uv_8c_a0ddf1224851353fc92bfbff6f499fa97}{main()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$out\+File\+Name} & a string which provides and returns the output filename\\
+\hline
+{\em $\ast$vmode} & an int with a flag for the chosen verbose mode (0\+:silent, 1\+: normal, 2\+: verbose)\\
+\hline
+{\em $\ast$cmode} & an int with a flat for whether the F\+FT will be centered on the center of brightness\\
+\hline
+{\em $\ast$\+Npad} & an int with the number of points per dimension to which the image will be padded. It it is smaller than the number of points in the image, then the total number of points in the image will be used.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Nothing 
+\end{DoxyReturn}

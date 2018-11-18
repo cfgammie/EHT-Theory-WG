@@ -1,0 +1,236 @@
+\hypertarget{models_u_v_8c}{}\section{O\+L\+D/models\+UV.c File Reference}
+\label{models_u_v_8c}\index{O\+L\+D/models\+U\+V.\+c@{O\+L\+D/models\+U\+V.\+c}}
+{\ttfamily \#include \char`\"{}definitions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{models_u_v_8c_a61d9379ac3c49584a95702bddaae996d}{bessj1} (double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+1(x) for any real x. \end{DoxyCompactList}\item 
+double \hyperlink{models_u_v_8c_ad33f21736f590e71d74293734e865c07}{polar\+Angle} (double x, double y)
+\begin{DoxyCompactList}\small\item\em Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. \end{DoxyCompactList}\item 
+int \hyperlink{models_u_v_8c_a6749b9776e9313552d0a50e5cd3e40de}{make\+U\+V\+Grid} (int Nu, int Nv, double umax, double vmax, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Generates a grid of coordinates in the u-\/v plane. \end{DoxyCompactList}\item 
+int \hyperlink{models_u_v_8c_ab84738cb3ed70932e6b52e668dde3a43}{Vcres} (double u, double v, double R, double psi, double tau, double phi, double $\ast$Vreal, double $\ast$Vimg)
+\begin{DoxyCompactList}\small\item\em The visibility function of a crescent model. \end{DoxyCompactList}\item 
+int \hyperlink{models_u_v_8c_aaffaa4dc4f861f235fd339362b461895}{make\+U\+Vmodel} (int i\+Model, double param\mbox{[}$\,$\mbox{]}, int Nu, int Nv, double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco}\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco}\mbox{[}$\,$\mbox{]}, double Vis\+Amp\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]}, double Vis\+Phase\mbox{[}\hyperlink{definitions_8h_a124ae998e2dbbd20602f72f8bf359ad0}{Nu\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a2fc869c915b866dc528cc00205f41a31}{Nv\+Max}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Makes a u-\/v map from an analytic model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{models\+U\+V.\+c@{models\+U\+V.\+c}!bessj1@{bessj1}}
+\index{bessj1@{bessj1}!models\+U\+V.\+c@{models\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{bessj1(double x)}{bessj1(double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj1 (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{models_u_v_8c_a61d9379ac3c49584a95702bddaae996d}{}\label{models_u_v_8c_a61d9379ac3c49584a95702bddaae996d}
+
+
+Returns the Bessel function J\+\_\+1(x) for any real x. 
+
+(DP) Changed all floats to doubles
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{models\+U\+V.\+c@{models\+U\+V.\+c}!make\+U\+V\+Grid@{make\+U\+V\+Grid}}
+\index{make\+U\+V\+Grid@{make\+U\+V\+Grid}!models\+U\+V.\+c@{models\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{make\+U\+V\+Grid(int Nu, int Nv, double umax, double vmax, double Uco[], double Vco[])}{makeUVGrid(int Nu, int Nv, double umax, double vmax, double Uco[], double Vco[])}}]{\setlength{\rightskip}{0pt plus 5cm}int make\+U\+V\+Grid (
+\begin{DoxyParamCaption}
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{umax, }
+\item[{double}]{vmax, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{models_u_v_8c_a6749b9776e9313552d0a50e5cd3e40de}{}\label{models_u_v_8c_a6749b9776e9313552d0a50e5cd3e40de}
+
+
+Generates a grid of coordinates in the u-\/v plane. 
+
+It generates an equidistant grid of Nu by Nv grid points in the u-\/v plane and stores the two grids in the double arrays Uco\mbox{[}\mbox{]} and Vco\mbox{[}\mbox{]}. The grid are from -\/umax -\/$>$ umax and from -\/vmax -\/$>$vmax. Both Nu and Nv need to be odd. The routine checks whether the number of grid points is less than the maximum numbers Nu\+Max and Nv\+Max stored in the global definitions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em umax} & a double with the maximum value of the u coordinate \\
+\hline
+{\em vmax} & a double with the maximum value of the v coordinate \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array where the u-\/coordinates will be stored \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array where the v-\/coordinates will be stored\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error, e.\+g., too many grid points or not an odd number 
+\end{DoxyReturn}
+\index{models\+U\+V.\+c@{models\+U\+V.\+c}!make\+U\+Vmodel@{make\+U\+Vmodel}}
+\index{make\+U\+Vmodel@{make\+U\+Vmodel}!models\+U\+V.\+c@{models\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{make\+U\+Vmodel(int i\+Model, double param[], int Nu, int Nv, double Uco[], double Vco[], double Vis\+Amp[Nu\+Max][Nv\+Max], double Vis\+Phase[Nu\+Max][Nv\+Max])}{makeUVmodel(int iModel, double param[], int Nu, int Nv, double Uco[], double Vco[], double VisAmp[NuMax][NvMax], double VisPhase[NuMax][NvMax])}}]{\setlength{\rightskip}{0pt plus 5cm}int make\+U\+Vmodel (
+\begin{DoxyParamCaption}
+\item[{int}]{i\+Model, }
+\item[{double}]{param\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Nu, }
+\item[{int}]{Nv, }
+\item[{double}]{Uco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Vis\+Amp\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}, }
+\item[{double}]{Vis\+Phase\mbox{[}\+Nu\+Max\mbox{]}\mbox{[}\+Nv\+Max\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{models_u_v_8c_aaffaa4dc4f861f235fd339362b461895}{}\label{models_u_v_8c_aaffaa4dc4f861f235fd339362b461895}
+
+
+Makes a u-\/v map from an analytic model. 
+
+On return all columns are stored in the relevant arrays in the argument list.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 21, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em i\+Model} & an int that specifies which model to use \\
+\hline
+{\em param\mbox{[}$\,$\mbox{]}} & a double array with the model parameters \\
+\hline
+{\em Nu} & an int with the number of grid points in the u-\/direction \\
+\hline
+{\em Nv} & an int with the number of grid points in the v-\/direction \\
+\hline
+{\em Uco\mbox{[}$\,$\mbox{]}} & a double array with the u-\/coordinates \\
+\hline
+{\em Vco\mbox{[}$\,$\mbox{]}} & a double array with the v-\/coordinates \\
+\hline
+{\em Vis\+Am\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the visibility amplitudes are stored on return \\
+\hline
+{\em Vis\+Phase\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the visibility phases are stored on return\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error
+\end{DoxyReturn}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000023}{Todo}]add more models; for now it only has the crescent model\end{DoxyRefDesc}
+\index{models\+U\+V.\+c@{models\+U\+V.\+c}!polar\+Angle@{polar\+Angle}}
+\index{polar\+Angle@{polar\+Angle}!models\+U\+V.\+c@{models\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{polar\+Angle(double x, double y)}{polarAngle(double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}double polar\+Angle (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{models_u_v_8c_ad33f21736f590e71d74293734e865c07}{}\label{models_u_v_8c_ad33f21736f590e71d74293734e865c07}
+
+
+Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. 
+
+Useful in converting from Cartesian to Polar Coordinates
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the horizontal Cartesian coordinate \\
+\hline
+{\em y} & a double argument for the vertical Cartesian coordinate\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the phi angle in radians 
+\end{DoxyReturn}
+\index{models\+U\+V.\+c@{models\+U\+V.\+c}!Vcres@{Vcres}}
+\index{Vcres@{Vcres}!models\+U\+V.\+c@{models\+U\+V.\+c}}
+\subsubsection[{\texorpdfstring{Vcres(double u, double v, double R, double psi, double tau, double phi, double $\ast$\+Vreal, double $\ast$\+Vimg)}{Vcres(double u, double v, double R, double psi, double tau, double phi, double *Vreal, double *Vimg)}}]{\setlength{\rightskip}{0pt plus 5cm}int Vcres (
+\begin{DoxyParamCaption}
+\item[{double}]{u, }
+\item[{double}]{v, }
+\item[{double}]{R, }
+\item[{double}]{psi, }
+\item[{double}]{tau, }
+\item[{double}]{phi, }
+\item[{double $\ast$}]{Vreal, }
+\item[{double $\ast$}]{Vimg}
+\end{DoxyParamCaption}
+)}\hypertarget{models_u_v_8c_ab84738cb3ed70932e6b52e668dde3a43}{}\label{models_u_v_8c_ab84738cb3ed70932e6b52e668dde3a43}
+
+
+The visibility function of a crescent model. 
+
+Returns the real and imaginary parts of the visibility function of a crescent, following the decomposition of Kamruddin \& Dexter (2013), as a difference between two offset disks. Here R=Rp is the overall radius of the crescent, psi=1-\/\+Rn/\+Rp is the relatively thickness of the crescent, tau=1-\/sqrt(a$^\wedge$2+b$^\wedge$2)/(Rp-\/\+Rn) is the degree of symmetry of the crescent, and phi=atan(b/a) is the orientation of the crescent. The overall normalization is provided in the calling function.
+
+The pair (u,v) gives the location in the u-\/v plane.
+
+On return, Vreal and Vimag are the values of the real and imaginary parts
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+December 19, 2015
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em u} & a double with the u-\/coordinate \\
+\hline
+{\em v} & a double with the v-\/coordinate \\
+\hline
+{\em R} & a double with the overall radius of the crescent \\
+\hline
+{\em psi} & a double with the relativel thickness of the crescent \\
+\hline
+{\em tau} & a double with the degree of symmetry of the crescent \\
+\hline
+{\em phi} & a double with the orientation of the crescent (in rad) \\
+\hline
+{\em Vreal} & a pointer to a double that, on return, has the real part of the visibility \\
+\hline
+{\em Vimg} & a pointer to a double that, on return, has the imagin. part of the visibility\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything was ok; for now, it returns nothing else 
+\end{DoxyReturn}

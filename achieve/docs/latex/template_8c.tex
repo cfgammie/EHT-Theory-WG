@@ -1,0 +1,223 @@
+\hypertarget{template_8c}{}\section{template.\+c File Reference}
+\label{template_8c}\index{template.\+c@{template.\+c}}
+
+
+Converts an image to u-\/v maps (complex amplitude and phase)  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{template_8c_a0dc9290c9bc6e54aee211613c2331983}{D\+E\+F\+A\+U\+L\+T\+O\+U\+T\+F\+I\+L\+E\+N\+A\+ME}~\char`\"{}uv.\+out\char`\"{}\hypertarget{template_8c_a0dc9290c9bc6e54aee211613c2331983}{}\label{template_8c_a0dc9290c9bc6e54aee211613c2331983}
+
+\begin{DoxyCompactList}\small\item\em default filename for output, if -\/o option is not given \end{DoxyCompactList}\item 
+\#define \hyperlink{template_8c_a4c9fdf0c7230b4e3358ada61359d528e}{V\+M\+O\+D\+E\+D\+E\+F\+A\+U\+LT}~1\hypertarget{template_8c_a4c9fdf0c7230b4e3358ada61359d528e}{}\label{template_8c_a4c9fdf0c7230b4e3358ada61359d528e}
+
+\begin{DoxyCompactList}\small\item\em default verbose mode \char`\"{}medium\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{template_8c_ab9df828771ce503123f3dd400082cd6e}{printerror} (char errmsg\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Prints a help message when no other arguments are given. \end{DoxyCompactList}\item 
+void \hyperlink{template_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{printhelp} (void)
+\begin{DoxyCompactList}\small\item\em Prints a help message when no other arguments are given. \end{DoxyCompactList}\item 
+int \hyperlink{template_8c_aeaec9871b168b846b6d3bc34b4518439}{parse} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]}, char $\ast$\hyperlink{beam_8c_aaebf57a90cf4e4c992cf57a517c9277b}{in\+File\+Name}, char $\ast$\hyperlink{beam_8c_a57651864e932afa78daa73d68cae4fe0}{out\+File\+Name}, int $\ast$vmode)
+\begin{DoxyCompactList}\small\item\em Parses the command line for options. \end{DoxyCompactList}\item 
+int \hyperlink{template_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main program. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Converts an image to u-\/v maps (complex amplitude and phase) 
+
+This program reads an image stored in an input F\+I\+TS file, calculates its complex Fourier transform, and stores the resulting visibility amplitudes and phases in an output O\+I\+F\+I\+TS file.
+
+Use\+: image2uv \mbox{[}-\/sv\mbox{]} \textquotesingle{}infile.\+fits\textquotesingle{} \mbox{[}-\/o \textquotesingle{}uvresults.\+out\textquotesingle{}\mbox{]}
+
+The required options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}filename\char`\"{}\+: sets the input image filename (F\+I\+TS)
+\end{DoxyItemize}
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/o \mbox{[}filename\mbox{]}\char`\"{}\+: sets the output visibility filename (U\+V\+F\+I\+TS).
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\end{DoxyItemize}
+
+If no options are given, it prints a help message
+
+Examples\+:
+
+
+\begin{DoxyItemize}
+\item image2uv inimage.\+fits -\/o uvresults.\+out
+\end{DoxyItemize}
+
+Reads the file form inimage.\+fits and outputs the visibility amplitudes and phases into uvresults.\+out
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000021}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000023}{Todo}]nothing left\end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{template.\+c@{template.\+c}!main@{main}}
+\index{main@{main}!template.\+c@{template.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{template_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{template_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Main program. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+Nothing 
+\end{DoxyPrecond}
+\index{template.\+c@{template.\+c}!parse@{parse}}
+\index{parse@{parse}!template.\+c@{template.\+c}}
+\subsubsection[{\texorpdfstring{parse(int argc, char $\ast$argv[], char $\ast$in\+File\+Name, char $\ast$out\+File\+Name, int $\ast$vmode)}{parse(int argc, char *argv[], char *inFileName, char *outFileName, int *vmode)}}]{\setlength{\rightskip}{0pt plus 5cm}int parse (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}, }
+\item[{char $\ast$}]{in\+File\+Name, }
+\item[{char $\ast$}]{out\+File\+Name, }
+\item[{int $\ast$}]{vmode}
+\end{DoxyParamCaption}
+)}\hypertarget{template_8c_aeaec9871b168b846b6d3bc34b4518439}{}\label{template_8c_aeaec9871b168b846b6d3bc34b4518439}
+
+
+Parses the command line for options. 
+
+Parses the command line for options. If no options are given, it prints a help message
+
+The required options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}filename\char`\"{}\+: sets the input image filename (F\+I\+TS)
+\end{DoxyItemize}
+
+The optional options are\+:
+\begin{DoxyItemize}
+\item \char`\"{}-\/o \mbox{[}filename\mbox{]}\char`\"{}\+: sets the output visibility filename (U\+V\+F\+I\+TS).
+\item \char`\"{}-\/s\char`\"{}\+: silent mode. It does not print anything
+\item \char`\"{}-\/v\char`\"{}\+: verbose mode. It prints a lot more information
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from the main routine
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & an int (as is piped from the unix prompt)\\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & an array of strings (as is piped from the unix prompt)\\
+\hline
+{\em $\ast$in\+File\+Name} & a string which returns the input filename\\
+\hline
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{template.\+c@{template.\+c}!printerror@{printerror}}
+\index{printerror@{printerror}!template.\+c@{template.\+c}}
+\subsubsection[{\texorpdfstring{printerror(char errmsg[])}{printerror(char errmsg[])}}]{\setlength{\rightskip}{0pt plus 5cm}void printerror (
+\begin{DoxyParamCaption}
+\item[{char}]{errmsg\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{template_8c_ab9df828771ce503123f3dd400082cd6e}{}\label{template_8c_ab9df828771ce503123f3dd400082cd6e}
+
+
+Prints a help message when no other arguments are given. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{template_8c_aeaec9871b168b846b6d3bc34b4518439}{parse()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em errmsg\mbox{[}$\,$\mbox{]}} & a string with the error message to be printed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{template.\+c@{template.\+c}!printhelp@{printhelp}}
+\index{printhelp@{printhelp}!template.\+c@{template.\+c}}
+\subsubsection[{\texorpdfstring{printhelp(void)}{printhelp(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void printhelp (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{template_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{}\label{template_8c_acece0e4ab903f94d4adbd6c7e32b3efb}
+
+
+Prints a help message when no other arguments are given. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{template_8c_aeaec9871b168b846b6d3bc34b4518439}{parse()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}

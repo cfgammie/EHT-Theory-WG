@@ -1,0 +1,508 @@
+\hypertarget{io_8c}{}\section{io.\+c File Reference}
+\label{io_8c}\index{io.\+c@{io.\+c}}
+
+
+Subroutines to perform I/O with F\+I\+TS, O\+I\+F\+I\+TS, etc. files.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{io_8c_a8d23feea868a983c8c2b661e1e16972f}{R\+ED}~\char`\"{}\textbackslash{}x1B\mbox{[}31m\char`\"{}\hypertarget{io_8c_a8d23feea868a983c8c2b661e1e16972f}{}\label{io_8c_a8d23feea868a983c8c2b661e1e16972f}
+
+\begin{DoxyCompactList}\small\item\em color R\+ED for error output \end{DoxyCompactList}\item 
+\#define \hyperlink{io_8c_a5bc410b99375860e54cee3f4bfe4b08e}{R\+E\+S\+E\+T\+C\+O\+L\+OR}~\char`\"{}\textbackslash{}x1B\mbox{[}0m\char`\"{}\hypertarget{io_8c_a5bc410b99375860e54cee3f4bfe4b08e}{}\label{io_8c_a5bc410b99375860e54cee3f4bfe4b08e}
+
+\begin{DoxyCompactList}\small\item\em color to reset to normal \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{io_8c_af8262d98b802937c574957354af572fc}{print\+Error\+IO} (char errmsg\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Prints an error message. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_ae9ee556f23e84209607c2940391b6fa6}{read\+F\+I\+T\+S\+Imagedim} (char fname\mbox{[}$\,$\mbox{]}, int $\ast$Ny, int $\ast$Nx, double $\ast$y\+Scale, double $\ast$x\+Scale)
+\begin{DoxyCompactList}\small\item\em Reads the image dimensions of a F\+I\+TS file, both in terms of pixels and in terms of physical units. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_a1093cacb975cf9e6dc3845a1f65f53dd}{read\+F\+I\+T\+S\+Image} (char fname\mbox{[}$\,$\mbox{]}, int Ny, int Nx, int Npad, double $\ast$Image)
+\begin{DoxyCompactList}\small\item\em Reads the image stored in a F\+I\+TS file and, optionally, pads it with zeros. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_ad0be222f95ff496610bb360e01aab56d}{read\+F\+I\+T\+S\+Cubedim} (char fname\mbox{[}$\,$\mbox{]}, int $\ast$Ny, int $\ast$Nx, double $\ast$y\+Scale, double $\ast$x\+Scale)
+\begin{DoxyCompactList}\small\item\em Reads the image dimensions of a F\+I\+TS data cube, both in terms of pixels and in terms of physical units. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_ae14d311c7a554992bda3fcf35a0c54a0}{read\+F\+I\+T\+S\+Cube} (char fname\mbox{[}$\,$\mbox{]}, int Ny, int Nx, double $\ast$Image)
+\begin{DoxyCompactList}\small\item\em Reads the image stored in a F\+I\+TS data cube and, optionally, pads it with zeros. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_ab884e4759cc79d219ef42f9e6835c2b1}{write\+F\+I\+T\+S\+Vis} (char fname\mbox{[}$\,$\mbox{]}, int Ny, int Nx, double $\ast$Vp, double $\ast$Va, double v\+Scale, double u\+Scale, char hist\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Writes visibility amplitudes and phases into a F\+I\+TS file. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_a9403cd46eafa834291081dcb30e0a528}{write\+F\+I\+T\+S\+Image} (char fname\mbox{[}$\,$\mbox{]}, int Npixel, double pixel\+Size, double $\ast$Image, char hist\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Writes a model image into a F\+I\+TS file. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_a5c643255817d3e98ce8a002bec9d0007}{index\+Arr} (int i, int j, int Ny, int Nx)
+\begin{DoxyCompactList}\small\item\em Function to convert 2D array indices to a pointer location. \end{DoxyCompactList}\item 
+int \hyperlink{io_8c_a835d3662188c934c07cb534f441241be}{Array\+Pad} (int Ny, int Nx, int Npad, int $\ast$i\+Row\+Start, int $\ast$i\+Col\+Start, int $\ast$Ny\+Pad, int $\ast$Nx\+Pad)
+\begin{DoxyCompactList}\small\item\em Function to calculate sizes and starting locations of padded images. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Subroutines to perform I/O with F\+I\+TS, O\+I\+F\+I\+TS, etc. files. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+October 2, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000013}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000013}{Todo}]nothing left\end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{io.\+c@{io.\+c}!Array\+Pad@{Array\+Pad}}
+\index{Array\+Pad@{Array\+Pad}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{Array\+Pad(int Ny, int Nx, int Npad, int $\ast$i\+Row\+Start, int $\ast$i\+Col\+Start, int $\ast$\+Ny\+Pad, int $\ast$\+Nx\+Pad)}{ArrayPad(int Ny, int Nx, int Npad, int *iRowStart, int *iColStart, int *NyPad, int *NxPad)}}]{\setlength{\rightskip}{0pt plus 5cm}int Array\+Pad (
+\begin{DoxyParamCaption}
+\item[{int}]{Ny, }
+\item[{int}]{Nx, }
+\item[{int}]{Npad, }
+\item[{int $\ast$}]{i\+Row\+Start, }
+\item[{int $\ast$}]{i\+Col\+Start, }
+\item[{int $\ast$}]{Ny\+Pad, }
+\item[{int $\ast$}]{Nx\+Pad}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_a835d3662188c934c07cb534f441241be}{}\label{io_8c_a835d3662188c934c07cb534f441241be}
+
+
+Function to calculate sizes and starting locations of padded images. 
+
+Given an initial size Ny$\ast$\+Nx of an immage array and a padding integer Npad, it returns (i) the starting row (i\+Row\+Start) and column (i\+Col\+Start) of the actual image in the padded array (with the first pixel counting from \mbox{[}1,1\mbox{]}) (ii) the size of the padded array along each direction (Nx\+Pad and Ny\+Pad), which will be the larger of the initial size and Npad, along each direction
+
+It returns zero if it all worked out, one if it didn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Ny} & an int with the number of rows in the image \\
+\hline
+{\em Nx} & an int with the number of columns in the image \\
+\hline
+{\em Npad} & an int with the padding parameter \\
+\hline
+{\em $\ast$i\+Row\+Start} & an int pointer that returns the starting row of the image in the padded array \\
+\hline
+{\em $\ast$i\+Col\+Start} & an int pointer that returns the starting column of the image in the padded array \\
+\hline
+{\em Ny\+Pad} & an int pointer that returns the number of rows of the padded image \\
+\hline
+{\em Nx\+Pad} & an int pointer that returns the number of columns of the padded image\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+October 3, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000021}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+it assumes that all integers are positive, so it never returns anything but zero
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000021}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!index\+Arr@{index\+Arr}}
+\index{index\+Arr@{index\+Arr}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{index\+Arr(int i, int j, int Ny, int Nx)}{indexArr(int i, int j, int Ny, int Nx)}}]{\setlength{\rightskip}{0pt plus 5cm}int index\+Arr (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{int}]{j, }
+\item[{int}]{Ny, }
+\item[{int}]{Nx}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_a5c643255817d3e98ce8a002bec9d0007}{}\label{io_8c_a5c643255817d3e98ce8a002bec9d0007}
+
+
+Function to convert 2D array indices to a pointer location. 
+
+Given an \mbox{[}Ny\mbox{]}\mbox{[}Nx\mbox{]} array, it takes the two coordinates i and j of an element and converts it to an incremental pointer location. The i-\/ and j-\/ coordinates start from (1,1) for the first point
+
+
+\begin{DoxyParams}{Parameters}
+{\em i} & an int with the row coordinate of an element \\
+\hline
+{\em j} & an int with the column coordinate of an element \\
+\hline
+{\em Ny} & an int with the number of rows in the image (not used) \\
+\hline
+{\em Nx} & an int with the number of columns in the image\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+October 3, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000020}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000020}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!print\+Error\+IO@{print\+Error\+IO}}
+\index{print\+Error\+IO@{print\+Error\+IO}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{print\+Error\+I\+O(char errmsg[])}{printErrorIO(char errmsg[])}}]{\setlength{\rightskip}{0pt plus 5cm}void print\+Error\+IO (
+\begin{DoxyParamCaption}
+\item[{char}]{errmsg\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_af8262d98b802937c574957354af572fc}{}\label{io_8c_af8262d98b802937c574957354af572fc}
+
+
+Prints an error message. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 30, 2017
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em errmsg\mbox{[}$\,$\mbox{]}} & a string with the error message to be printed\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{io.\+c@{io.\+c}!read\+F\+I\+T\+S\+Cube@{read\+F\+I\+T\+S\+Cube}}
+\index{read\+F\+I\+T\+S\+Cube@{read\+F\+I\+T\+S\+Cube}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{read\+F\+I\+T\+S\+Cube(char fname[], int Ny, int Nx, double $\ast$\+Image)}{readFITSCube(char fname[], int Ny, int Nx, double *Image)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+F\+I\+T\+S\+Cube (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Ny, }
+\item[{int}]{Nx, }
+\item[{double $\ast$}]{Image}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_ae14d311c7a554992bda3fcf35a0c54a0}{}\label{io_8c_ae14d311c7a554992bda3fcf35a0c54a0}
+
+
+Reads the image stored in a F\+I\+TS data cube and, optionally, pads it with zeros. 
+
+Reads the image stored in the F\+I\+TS file \textquotesingle{}fname\textquotesingle{}, with known dimensions Nx and Ny \mbox{[}to be obtained using read\+F\+I\+T\+Sdim()\mbox{]}. If Npad is larger than Nx or Ny, then it pads the image so that the corresponding dimension has Npad grid points.
+
+The difference with read\+F\+I\+T\+S\+Image is that this subroutine reads in a 4D cube. It only works with F\+I\+TS files that have a dimension of 4, and assumes that the first two directions are the actual image axes.
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em Nx} & an int with the dimension of the \char`\"{}x-\/axis\char`\"{} \\
+\hline
+{\em Ny} & an int with the dimension of the \char`\"{}y-\/axis\char`\"{}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+July 30, 2018
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000017}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000017}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!read\+F\+I\+T\+S\+Cubedim@{read\+F\+I\+T\+S\+Cubedim}}
+\index{read\+F\+I\+T\+S\+Cubedim@{read\+F\+I\+T\+S\+Cubedim}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{read\+F\+I\+T\+S\+Cubedim(char fname[], int $\ast$\+Ny, int $\ast$\+Nx, double $\ast$y\+Scale, double $\ast$x\+Scale)}{readFITSCubedim(char fname[], int *Ny, int *Nx, double *yScale, double *xScale)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+F\+I\+T\+S\+Cubedim (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{Ny, }
+\item[{int $\ast$}]{Nx, }
+\item[{double $\ast$}]{y\+Scale, }
+\item[{double $\ast$}]{x\+Scale}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_ad0be222f95ff496610bb360e01aab56d}{}\label{io_8c_ad0be222f95ff496610bb360e01aab56d}
+
+
+Reads the image dimensions of a F\+I\+TS data cube, both in terms of pixels and in terms of physical units. 
+
+Reads the image dimensions of the F\+I\+TS file given in the argument fname. It returns the dimensions of the image (in pixels) along its two axes in Nx and Ny and the size of each pixel along the two axis in x\+Scale and y\+Scale.
+
+The difference with read\+F\+I\+T\+S\+Image\+Dim is that this subroutine reads in a 4D cube. It only works with F\+I\+TS files that have a dimension of 4, and assumes that the first two directions are the actual image axes.
+
+In this and in other subroutines, the x-\/axis is the same as the columns and the y-\/axis is the same as the rows of the image. These two notations will be used interchangeably.
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em $\ast$\+Ny} & on return, an int pointer with the dimension of the \char`\"{}y-\/axis\char`\"{} (\# of rows) \\
+\hline
+{\em $\ast$\+Nx} & on return, an int pointer with the dimension of the \char`\"{}x-\/axis\char`\"{} (\# of columns) \\
+\hline
+{\em $\ast$y\+Scale} & on return, a double pointer with the physical size of a pixel along the y-\/axis \\
+\hline
+{\em $\ast$x\+Scale} & on return, a double pointer with the physical size of a pixel along the x-\/axis\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+July 30, 2018
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000016}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000016}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!read\+F\+I\+T\+S\+Image@{read\+F\+I\+T\+S\+Image}}
+\index{read\+F\+I\+T\+S\+Image@{read\+F\+I\+T\+S\+Image}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{read\+F\+I\+T\+S\+Image(char fname[], int Ny, int Nx, int Npad, double $\ast$\+Image)}{readFITSImage(char fname[], int Ny, int Nx, int Npad, double *Image)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+F\+I\+T\+S\+Image (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Ny, }
+\item[{int}]{Nx, }
+\item[{int}]{Npad, }
+\item[{double $\ast$}]{Image}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_a1093cacb975cf9e6dc3845a1f65f53dd}{}\label{io_8c_a1093cacb975cf9e6dc3845a1f65f53dd}
+
+
+Reads the image stored in a F\+I\+TS file and, optionally, pads it with zeros. 
+
+Reads the image stored in the F\+I\+TS file \textquotesingle{}fname\textquotesingle{}, with known dimensions Nx and Ny \mbox{[}to be obtained using read\+F\+I\+T\+Sdim()\mbox{]}. If Npad is larger than Nx or Ny, then it pads the image so that the corresponding dimension has Npad grid points.
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em Nx} & an int with the dimension of the \char`\"{}x-\/axis\char`\"{} \\
+\hline
+{\em Ny} & an int with the dimension of the \char`\"{}y-\/axis\char`\"{} \\
+\hline
+{\em Npad} & an int with the dimension along each direction of the padded image\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+October 2, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000015}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000015}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!read\+F\+I\+T\+S\+Imagedim@{read\+F\+I\+T\+S\+Imagedim}}
+\index{read\+F\+I\+T\+S\+Imagedim@{read\+F\+I\+T\+S\+Imagedim}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{read\+F\+I\+T\+S\+Imagedim(char fname[], int $\ast$\+Ny, int $\ast$\+Nx, double $\ast$y\+Scale, double $\ast$x\+Scale)}{readFITSImagedim(char fname[], int *Ny, int *Nx, double *yScale, double *xScale)}}]{\setlength{\rightskip}{0pt plus 5cm}int read\+F\+I\+T\+S\+Imagedim (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int $\ast$}]{Ny, }
+\item[{int $\ast$}]{Nx, }
+\item[{double $\ast$}]{y\+Scale, }
+\item[{double $\ast$}]{x\+Scale}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_ae9ee556f23e84209607c2940391b6fa6}{}\label{io_8c_ae9ee556f23e84209607c2940391b6fa6}
+
+
+Reads the image dimensions of a F\+I\+TS file, both in terms of pixels and in terms of physical units. 
+
+Reads the image dimensions of the F\+I\+TS file given in the argument fname. It returns the dimensions of the image (in pixels) along its two axes in Nx and Ny and the size of each pixel along the two axis in x\+Scale and y\+Scale.
+
+In this and in other subroutines, the x-\/axis is the same as the columns and the y-\/axis is the same as the rows of the image. These two notations will be used interchangeably.
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em $\ast$\+Ny} & on return, an int pointer with the dimension of the \char`\"{}y-\/axis\char`\"{} (\# of rows) \\
+\hline
+{\em $\ast$\+Nx} & on return, an int pointer with the dimension of the \char`\"{}x-\/axis\char`\"{} (\# of columns) \\
+\hline
+{\em $\ast$y\+Scale} & on return, a double pointer with the physical size of a pixel along the y-\/axis \\
+\hline
+{\em $\ast$x\+Scale} & on return, a double pointer with the physical size of a pixel along the x-\/axis\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+October 2, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000014}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000014}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!write\+F\+I\+T\+S\+Image@{write\+F\+I\+T\+S\+Image}}
+\index{write\+F\+I\+T\+S\+Image@{write\+F\+I\+T\+S\+Image}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{write\+F\+I\+T\+S\+Image(char fname[], int Npixel, double pixel\+Size, double $\ast$\+Image, char hist[])}{writeFITSImage(char fname[], int Npixel, double pixelSize, double *Image, char hist[])}}]{\setlength{\rightskip}{0pt plus 5cm}int write\+F\+I\+T\+S\+Image (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Npixel, }
+\item[{double}]{pixel\+Size, }
+\item[{double $\ast$}]{Image, }
+\item[{char}]{hist\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_a9403cd46eafa834291081dcb30e0a528}{}\label{io_8c_a9403cd46eafa834291081dcb30e0a528}
+
+
+Writes a model image into a F\+I\+TS file. 
+
+Given the double array Image of dimensions Npixel by Npixel, it stores it in the F\+I\+TS file \textquotesingle{}fname\textquotesingle{}
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em Npixel} & an int with the number of pixels along each axis \\
+\hline
+{\em pixel\+Size} & a double with the physical size of each pixel \\
+\hline
+{\em Image\mbox{[}$\,$\mbox{]}} & a Npixel by Npixel double array with the image \\
+\hline
+{\em hist\mbox{[}$\,$\mbox{]}} & a string of characters to be put in the \char`\"{}history\char`\"{} field of the F\+I\+TS file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 3, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000019}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000019}{Todo}]nothing left\end{DoxyRefDesc}
+\index{io.\+c@{io.\+c}!write\+F\+I\+T\+S\+Vis@{write\+F\+I\+T\+S\+Vis}}
+\index{write\+F\+I\+T\+S\+Vis@{write\+F\+I\+T\+S\+Vis}!io.\+c@{io.\+c}}
+\subsubsection[{\texorpdfstring{write\+F\+I\+T\+S\+Vis(char fname[], int Ny, int Nx, double $\ast$\+Vp, double $\ast$\+Va, double v\+Scale, double u\+Scale, char hist[])}{writeFITSVis(char fname[], int Ny, int Nx, double *Vp, double *Va, double vScale, double uScale, char hist[])}}]{\setlength{\rightskip}{0pt plus 5cm}int write\+F\+I\+T\+S\+Vis (
+\begin{DoxyParamCaption}
+\item[{char}]{fname\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{Ny, }
+\item[{int}]{Nx, }
+\item[{double $\ast$}]{Vp, }
+\item[{double $\ast$}]{Va, }
+\item[{double}]{v\+Scale, }
+\item[{double}]{u\+Scale, }
+\item[{char}]{hist\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{io_8c_ab884e4759cc79d219ef42f9e6835c2b1}{}\label{io_8c_ab884e4759cc79d219ef42f9e6835c2b1}
+
+
+Writes visibility amplitudes and phases into a F\+I\+TS file. 
+
+Given two real arrays Va\mbox{[}\mbox{]} and Vp\mbox{[}\mbox{]} of dimensions Nx by Ny, it stores them in the F\+I\+TS file \textquotesingle{}fname\textquotesingle{}
+
+It returns zero if everything was OK or the F\+I\+TS error code (and prints an error message) if it wasn\textquotesingle{}t.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fname\mbox{[}$\,$\mbox{]}} & a string with the filename to be read \\
+\hline
+{\em Nx} & an int with the dimension of the \char`\"{}x-\/axis\char`\"{} \\
+\hline
+{\em Ny} & an int with the dimension of the \char`\"{}y-\/axis\char`\"{} \\
+\hline
+{\em Va\mbox{[}$\,$\mbox{]}} & is a Nx by Ny double array with the visibility amplitudes \\
+\hline
+{\em Vp\mbox{[}$\,$\mbox{]}} & is a Nx by Ny double array with the visibility phases (in rad) \\
+\hline
+{\em u\+Scale} & is a double with the physical size of each pixel in the x-\/direction \\
+\hline
+{\em v\+Scale} & is a double with the physical size of each pixel in the x-\/direction \\
+\hline
+{\em hist\mbox{[}$\,$\mbox{]}} & is a string of characters to be put in the \char`\"{}history\char`\"{} field of the F\+I\+TS file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+November 3, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000018}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+No known warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000018}{Todo}]nothing left\end{DoxyRefDesc}

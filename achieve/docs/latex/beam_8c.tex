@@ -1,0 +1,190 @@
+\hypertarget{beam_8c}{}\section{O\+L\+D/beam.c File Reference}
+\label{beam_8c}\index{O\+L\+D/beam.\+c@{O\+L\+D/beam.\+c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$math.\+h$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$unistd.\+h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{beam_8c_a407193c5f1f859b29b38fcabdc4cf583}{Ntotal}~6217\hypertarget{beam_8c_a407193c5f1f859b29b38fcabdc4cf583}{}\label{beam_8c_a407193c5f1f859b29b38fcabdc4cf583}
+
+\begin{DoxyCompactList}\small\item\em total number of data \end{DoxyCompactList}\item 
+\#define \hyperlink{beam_8c_a4a9d32ff035c82119003134767948ebf}{NX}~255\hypertarget{beam_8c_a4a9d32ff035c82119003134767948ebf}{}\label{beam_8c_a4a9d32ff035c82119003134767948ebf}
+
+\begin{DoxyCompactList}\small\item\em number of grid points on image plane along x-\/axis (needs to be odd) \end{DoxyCompactList}\item 
+\#define \hyperlink{beam_8c_a652e87ecc9140879666ae9d6bf4ca893}{NY}~255\hypertarget{beam_8c_a652e87ecc9140879666ae9d6bf4ca893}{}\label{beam_8c_a652e87ecc9140879666ae9d6bf4ca893}
+
+\begin{DoxyCompactList}\small\item\em number of grid points on image plane along y-\/axis (needs to be odd) \end{DoxyCompactList}\item 
+\#define \hyperlink{beam_8c_a6150827fa7f8b2b1bd0c6f272da55074}{F\+R\+A\+C\+T\+I\+ON}~5.\+0\hypertarget{beam_8c_a6150827fa7f8b2b1bd0c6f272da55074}{}\label{beam_8c_a6150827fa7f8b2b1bd0c6f272da55074}
+
+\begin{DoxyCompactList}\small\item\em image size=F\+R\+A\+C\+T\+I\+O\+N/minimum baseline \end{DoxyCompactList}\item 
+\#define \hyperlink{beam_8c_a0dc9290c9bc6e54aee211613c2331983}{D\+E\+F\+A\+U\+L\+T\+O\+U\+T\+F\+I\+L\+E\+N\+A\+ME}~\char`\"{}image.\+out\char`\"{}\hypertarget{beam_8c_a0dc9290c9bc6e54aee211613c2331983}{}\label{beam_8c_a0dc9290c9bc6e54aee211613c2331983}
+
+\begin{DoxyCompactList}\small\item\em default filename for output, if -\/o option is not given \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{beam_8c_af5f45d39e1c2c766885ea446fb1ec60b}{readdata} (void)
+\begin{DoxyCompactList}\small\item\em Reads uv tracks from filename. \end{DoxyCompactList}\item 
+void \hyperlink{beam_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{printhelp} (void)
+\begin{DoxyCompactList}\small\item\em Prints a help message when the -\/h option is given. \end{DoxyCompactList}\item 
+int \hyperlink{beam_8c_a0eeebbda6e9eff03617082823aaad6b7}{parse} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Parses the command line for options. \end{DoxyCompactList}\item 
+int \hyperlink{beam_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Main. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \hyperlink{beam_8c_a5dcf967dede1aeb46c1bcd977a21ba10}{filename} \mbox{[}12\mbox{]} =\char`\"{}uv60sec.\+dat\char`\"{}\hypertarget{beam_8c_a5dcf967dede1aeb46c1bcd977a21ba10}{}\label{beam_8c_a5dcf967dede1aeb46c1bcd977a21ba10}
+
+\begin{DoxyCompactList}\small\item\em file name with data \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{beam_8c_a57651864e932afa78daa73d68cae4fe0}{out\+File\+Name}\hypertarget{beam_8c_a57651864e932afa78daa73d68cae4fe0}{}\label{beam_8c_a57651864e932afa78daa73d68cae4fe0}
+
+\begin{DoxyCompactList}\small\item\em file name with data \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{beam_8c_aaebf57a90cf4e4c992cf57a517c9277b}{in\+File\+Name}\hypertarget{beam_8c_aaebf57a90cf4e4c992cf57a517c9277b}{}\label{beam_8c_aaebf57a90cf4e4c992cf57a517c9277b}
+
+\begin{DoxyCompactList}\small\item\em file name with data \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a734bc31d35930e2461a57088f8918599}{Uco} \mbox{[}\hyperlink{beam_8c_a407193c5f1f859b29b38fcabdc4cf583}{Ntotal}\mbox{]}\hypertarget{beam_8c_a734bc31d35930e2461a57088f8918599}{}\label{beam_8c_a734bc31d35930e2461a57088f8918599}
+
+\begin{DoxyCompactList}\small\item\em array with u positions \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{Vco} \mbox{[}\hyperlink{beam_8c_a407193c5f1f859b29b38fcabdc4cf583}{Ntotal}\mbox{]}\hypertarget{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}{}\label{beam_8c_a1fd5054dbfaa8f32578efce24105ede0}
+
+\begin{DoxyCompactList}\small\item\em array with v positions \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_ab3b85afd6f8354098da6a24d287afc15}{maxB} =0\hypertarget{beam_8c_ab3b85afd6f8354098da6a24d287afc15}{}\label{beam_8c_ab3b85afd6f8354098da6a24d287afc15}
+
+\begin{DoxyCompactList}\small\item\em max abs values of baseline in u\&v \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a3f486444b195292075321e38efeaa12e}{minB} =1e20\hypertarget{beam_8c_a3f486444b195292075321e38efeaa12e}{}\label{beam_8c_a3f486444b195292075321e38efeaa12e}
+
+\begin{DoxyCompactList}\small\item\em min abs values of baseline in u\&v \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a1f718dc88c37631291e04342c16c6e28}{Xco} \mbox{[}\hyperlink{beam_8c_a4a9d32ff035c82119003134767948ebf}{NX}\mbox{]}\hypertarget{beam_8c_a1f718dc88c37631291e04342c16c6e28}{}\label{beam_8c_a1f718dc88c37631291e04342c16c6e28}
+
+\begin{DoxyCompactList}\small\item\em coordinates along x-\/axis \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a729c7d1cedea5be8e7215f933e86311f}{Yco} \mbox{[}\hyperlink{beam_8c_a652e87ecc9140879666ae9d6bf4ca893}{NY}\mbox{]}\hypertarget{beam_8c_a729c7d1cedea5be8e7215f933e86311f}{}\label{beam_8c_a729c7d1cedea5be8e7215f933e86311f}
+
+\begin{DoxyCompactList}\small\item\em coordinates along y-\/axis \end{DoxyCompactList}\item 
+double \hyperlink{beam_8c_a695ca07d594f04a03d7ef307debed033}{Image} \mbox{[}\hyperlink{beam_8c_a4a9d32ff035c82119003134767948ebf}{NX}\mbox{]}\mbox{[}\hyperlink{beam_8c_a652e87ecc9140879666ae9d6bf4ca893}{NY}\mbox{]}\hypertarget{beam_8c_a695ca07d594f04a03d7ef307debed033}{}\label{beam_8c_a695ca07d594f04a03d7ef307debed033}
+
+\begin{DoxyCompactList}\small\item\em brightness on image plane \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{beam.\+c@{beam.\+c}!main@{main}}
+\index{main@{main}!beam.\+c@{beam.\+c}}
+\subsubsection[{\texorpdfstring{main(int argc, char $\ast$argv[])}{main(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{beam_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{beam_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Main. 
+
+No details at this point
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 6, 2015
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+Nothing 
+\end{DoxyPrecond}
+\index{beam.\+c@{beam.\+c}!parse@{parse}}
+\index{parse@{parse}!beam.\+c@{beam.\+c}}
+\subsubsection[{\texorpdfstring{parse(int argc, char $\ast$argv[])}{parse(int argc, char *argv[])}}]{\setlength{\rightskip}{0pt plus 5cm}int parse (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{beam_8c_a0eeebbda6e9eff03617082823aaad6b7}{}\label{beam_8c_a0eeebbda6e9eff03617082823aaad6b7}
+
+
+Parses the command line for options. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 7, 2015
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from the main routine
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+\index{beam.\+c@{beam.\+c}!printhelp@{printhelp}}
+\index{printhelp@{printhelp}!beam.\+c@{beam.\+c}}
+\subsubsection[{\texorpdfstring{printhelp(void)}{printhelp(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void printhelp (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{beam_8c_acece0e4ab903f94d4adbd6c7e32b3efb}{}\label{beam_8c_acece0e4ab903f94d4adbd6c7e32b3efb}
+
+
+Prints a help message when the -\/h option is given. 
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 7, 2015
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+It is called from \hyperlink{beam_8c_a0eeebbda6e9eff03617082823aaad6b7}{parse()}
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+nothing 
+\end{DoxyReturn}
+\index{beam.\+c@{beam.\+c}!readdata@{readdata}}
+\index{readdata@{readdata}!beam.\+c@{beam.\+c}}
+\subsubsection[{\texorpdfstring{readdata(void)}{readdata(void)}}]{\setlength{\rightskip}{0pt plus 5cm}void readdata (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{beam_8c_af5f45d39e1c2c766885ea446fb1ec60b}{}\label{beam_8c_af5f45d39e1c2c766885ea446fb1ec60b}
+
+
+Reads uv tracks from filename. 
+
+No details at this point
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 6, 2015
+\end{DoxyDate}
+\begin{DoxyPrecond}{Precondition}
+Nothing
+\end{DoxyPrecond}
+
+\begin{DoxyParams}{Parameters}
+{\em no} & parameters\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns nothing 
+\end{DoxyReturn}

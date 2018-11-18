@@ -1,0 +1,234 @@
+\hypertarget{image_8c}{}\section{image.\+c File Reference}
+\label{image_8c}\index{image.\+c@{image.\+c}}
+{\ttfamily \#include \char`\"{}definitions.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}global.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{image_8c_ad33f21736f590e71d74293734e865c07}{polar\+Angle} (double x, double y)
+\begin{DoxyCompactList}\small\item\em Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. \end{DoxyCompactList}\item 
+double \hyperlink{image_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}{bessj0} (double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+0(x) for any real x. \end{DoxyCompactList}\item 
+double \hyperlink{image_8c_ad1acbce84c1617f7b4cca7994a026988}{bessj} (int n, double x)
+\begin{DoxyCompactList}\small\item\em Returns the Bessel function J\+\_\+n(x) for any real x. \end{DoxyCompactList}\item 
+int \hyperlink{image_8c_aed8535cc884843d536993d195500ddc9}{make\+Image\+Grid} (int Na, int Nb, double amax, double bmax, double aco\mbox{[}$\,$\mbox{]}, double bco\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Generates a grid of coordinates along the image plane. \end{DoxyCompactList}\item 
+int \hyperlink{image_8c_a1afd94505a8a7254da97560238e78746}{polar\+To\+Image} (int Nk, int Nm, int Na, int Nb, int kmin, int kmax, int mmin, int mmax, double kco\mbox{[}$\,$\mbox{]}, double Re\+Pk\mbox{[}\hyperlink{definitions_8h_a6ccfc696bb2c82285f45d6f8e05d50fb}{Nk\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a862e3f42f96df504b9de5f90f1de66ca}{Nm\+Max}\mbox{]}, double Im\+Pk\mbox{[}\hyperlink{definitions_8h_a6ccfc696bb2c82285f45d6f8e05d50fb}{Nk\+Max}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a862e3f42f96df504b9de5f90f1de66ca}{Nm\+Max}\mbox{]}, double aco\mbox{[}$\,$\mbox{]}, double bco\mbox{[}$\,$\mbox{]}, double \hyperlink{beam_8c_a695ca07d594f04a03d7ef307debed033}{Image}\mbox{[}\hyperlink{definitions_8h_a76c2fee0ad8bb2b1ebebbc0fa5baba3c}{N\+A\+M\+AX}\mbox{]}\mbox{[}\hyperlink{definitions_8h_a8a223ad1bc08d2a253d909495075c70e}{N\+B\+M\+AX}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Converts a polar k-\/m map to an image. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{image.\+c@{image.\+c}!bessj@{bessj}}
+\index{bessj@{bessj}!image.\+c@{image.\+c}}
+\subsubsection[{\texorpdfstring{bessj(int n, double x)}{bessj(int n, double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj (
+\begin{DoxyParamCaption}
+\item[{int}]{n, }
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{image_8c_ad1acbce84c1617f7b4cca7994a026988}{}\label{image_8c_ad1acbce84c1617f7b4cca7994a026988}
+
+
+Returns the Bessel function J\+\_\+n(x) for any real x. 
+
+(DP) Changed all floats to doubles; Also calls the relevant Bessel functions for n=0 and n=1
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em n} & an integer argument with the order of the Bessel function \\
+\hline
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{image.\+c@{image.\+c}!bessj0@{bessj0}}
+\index{bessj0@{bessj0}!image.\+c@{image.\+c}}
+\subsubsection[{\texorpdfstring{bessj0(double x)}{bessj0(double x)}}]{\setlength{\rightskip}{0pt plus 5cm}double bessj0 (
+\begin{DoxyParamCaption}
+\item[{double}]{x}
+\end{DoxyParamCaption}
+)}\hypertarget{image_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}{}\label{image_8c_a0ec213e5b9e2e7ba58b18bcf98923e67}
+
+
+Returns the Bessel function J\+\_\+0(x) for any real x. 
+
+(DP) Changed all floats to doubles
+
+\begin{DoxyAuthor}{Author}
+Numerical Recipes in C, 2nd edition, pg. 232
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 8, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the Bessel function\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the bessel function 
+\end{DoxyReturn}
+\index{image.\+c@{image.\+c}!make\+Image\+Grid@{make\+Image\+Grid}}
+\index{make\+Image\+Grid@{make\+Image\+Grid}!image.\+c@{image.\+c}}
+\subsubsection[{\texorpdfstring{make\+Image\+Grid(int Na, int Nb, double amax, double bmax, double aco[], double bco[])}{makeImageGrid(int Na, int Nb, double amax, double bmax, double aco[], double bco[])}}]{\setlength{\rightskip}{0pt plus 5cm}int make\+Image\+Grid (
+\begin{DoxyParamCaption}
+\item[{int}]{Na, }
+\item[{int}]{Nb, }
+\item[{double}]{amax, }
+\item[{double}]{bmax, }
+\item[{double}]{aco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{bco\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{image_8c_aed8535cc884843d536993d195500ddc9}{}\label{image_8c_aed8535cc884843d536993d195500ddc9}
+
+
+Generates a grid of coordinates along the image plane. 
+
+It generates an equidistant grid of Na alpha-\/points and of Nb beta-\/points and stores the two grids in the double arrays aco\mbox{[}\mbox{]} and bco\mbox{[}\mbox{]}. The grid are from -\/amax -\/$>$ amax and from -\/bmax -\/$>$bmax. Both Na and Nb need to be odd. The routine checks whether the number of grid points is less than the maximum numbers N\+A\+M\+AX and N\+B\+M\+AX stored in the global definitions.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Na} & an int with the number of grid points in the alpha-\/direction \\
+\hline
+{\em Nb} & an int with the number of grid points in the beta-\/direction \\
+\hline
+{\em amax} & a double with the maximum value of the alpha coordinate \\
+\hline
+{\em bmax} & a double with the maximum value of the beta coordinate \\
+\hline
+{\em aco\mbox{[}$\,$\mbox{]}} & a double array where the alpha coordinates will be stored \\
+\hline
+{\em bco\mbox{[}$\,$\mbox{]}} & a double array where the beta coordinates will be stored\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error, e.\+g., too many grid points or not an odd number 
+\end{DoxyReturn}
+\index{image.\+c@{image.\+c}!polar\+Angle@{polar\+Angle}}
+\index{polar\+Angle@{polar\+Angle}!image.\+c@{image.\+c}}
+\subsubsection[{\texorpdfstring{polar\+Angle(double x, double y)}{polarAngle(double x, double y)}}]{\setlength{\rightskip}{0pt plus 5cm}double polar\+Angle (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y}
+\end{DoxyParamCaption}
+)}\hypertarget{image_8c_ad33f21736f590e71d74293734e865c07}{}\label{image_8c_ad33f21736f590e71d74293734e865c07}
+
+
+Given two Cartesian coordinates (x,y), it returns the polar angle phi of the corresponding position vector, in the range 0-\/$>$2$\ast$pi. 
+
+Useful in converting from Cartesian to Polar Coordinates
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & a double argument for the horizontal Cartesian coordinate \\
+\hline
+{\em y} & a double argument for the vertical Cartesian coordinate\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the value of the phi angle in radians 
+\end{DoxyReturn}
+\index{image.\+c@{image.\+c}!polar\+To\+Image@{polar\+To\+Image}}
+\index{polar\+To\+Image@{polar\+To\+Image}!image.\+c@{image.\+c}}
+\subsubsection[{\texorpdfstring{polar\+To\+Image(int Nk, int Nm, int Na, int Nb, int kmin, int kmax, int mmin, int mmax, double kco[], double Re\+Pk[Nk\+Max][Nm\+Max], double Im\+Pk[Nk\+Max][Nm\+Max], double aco[], double bco[], double Image[N\+A\+M\+AX][N\+B\+M\+AX])}{polarToImage(int Nk, int Nm, int Na, int Nb, int kmin, int kmax, int mmin, int mmax, double kco[], double RePk[NkMax][NmMax], double ImPk[NkMax][NmMax], double aco[], double bco[], double Image[NAMAX][NBMAX])}}]{\setlength{\rightskip}{0pt plus 5cm}int polar\+To\+Image (
+\begin{DoxyParamCaption}
+\item[{int}]{Nk, }
+\item[{int}]{Nm, }
+\item[{int}]{Na, }
+\item[{int}]{Nb, }
+\item[{int}]{kmin, }
+\item[{int}]{kmax, }
+\item[{int}]{mmin, }
+\item[{int}]{mmax, }
+\item[{double}]{kco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Re\+Pk\mbox{[}\+Nk\+Max\mbox{]}\mbox{[}\+Nm\+Max\mbox{]}, }
+\item[{double}]{Im\+Pk\mbox{[}\+Nk\+Max\mbox{]}\mbox{[}\+Nm\+Max\mbox{]}, }
+\item[{double}]{aco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{bco\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{Image\mbox{[}\+N\+A\+M\+A\+X\mbox{]}\mbox{[}\+N\+B\+M\+A\+X\mbox{]}}
+\end{DoxyParamCaption}
+)}\hypertarget{image_8c_a1afd94505a8a7254da97560238e78746}{}\label{image_8c_a1afd94505a8a7254da97560238e78746}
+
+
+Converts a polar k-\/m map to an image. 
+
+Given a grid of (Nk,Nm) points of the polar transform (with the real part stored in Re\+Pk\mbox{[}\mbox{]}\mbox{[}\mbox{]} and the imaginary part in Im\+Pk\mbox{[}\mbox{]}\mbox{[}\mbox{]}), it returns the corresponding image on a (Na,Nb) grid of points, with the grid of alpha and beta points stored in aco\mbox{[}\mbox{]} and bco\mbox{[}\mbox{]} and the image stored in Image\mbox{[}\mbox{]}\mbox{[}\mbox{]}.
+
+It will only use the k-\/modes between kmin and kmax as well as the m-\/modes between mmin and mmax, as given in the inputs
+
+It uses the trapezoid rule to perform the integral over k and a simple summation for m. NB\+: it assumes that the k-\/coordinates are equidistant.
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+February 19, 2016
+\end{DoxyDate}
+
+\begin{DoxyParams}{Parameters}
+{\em Nk} & an int with the number of grid points in the k-\/direction \\
+\hline
+{\em Nm} & an int with the number of grid points in the m-\/direction \\
+\hline
+{\em Na} & an int with the number of grid points in the alpha-\/direction \\
+\hline
+{\em Nb} & an int with the number of grid points in the beta-\/direction \\
+\hline
+{\em kmin} & an int with the minimum k-\/mode to be used \\
+\hline
+{\em kmax} & an int with the maximum k-\/mode to be used \\
+\hline
+{\em mmin} & an int with the minimum m-\/mode to be used \\
+\hline
+{\em mmax} & an int with the maximum m-\/mode to be used \\
+\hline
+{\em kco\mbox{[}$\,$\mbox{]}} & a double array with the k-\/coordinates \\
+\hline
+{\em Re\+Pk\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the real parts of the polar transform will be stored \\
+\hline
+{\em Im\+Pk\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array in which the imaginary parts of the polar transform will be stored \\
+\hline
+{\em aco\mbox{[}$\,$\mbox{]}} & a double array with the alpha-\/coordinates \\
+\hline
+{\em bco\mbox{[}$\,$\mbox{]}} & a double array with the beta-\/coordinates \\
+\hline
+{\em Image\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}} & a double array with the image brightness\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it was successful, 1 if there was an error 
+\end{DoxyReturn}

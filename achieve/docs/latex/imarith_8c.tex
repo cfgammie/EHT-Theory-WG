@@ -1,0 +1,67 @@
+\hypertarget{imarith_8c}{}\section{Fits/imarith.c File Reference}
+\label{imarith_8c}\index{Fits/imarith.\+c@{Fits/imarith.\+c}}
+
+
+Performs arithmetic operations involving one or two images.  
+
+
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}fitsio.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})\hypertarget{imarith_8c_a0ddf1224851353fc92bfbff6f499fa97}{}\label{imarith_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Performs arithmetic operations involving one or two images. 
+
+Use\+: imarith image1\mbox{[}ext\mbox{]} image2\mbox{[}ext\mbox{]} operation outimage (2 images)
+
+or
+
+imarith image\mbox{[}ext\mbox{]} value operation outimage (1 image)
+
+Add, subtract, multiply, or divide the pixels in one image by another image or a constant and write the result to a new output image. Supported arithmetic operations are \textquotesingle{}add\textquotesingle{}, \textquotesingle{}sub\textquotesingle{}, \textquotesingle{}mul\textquotesingle{}, or \textquotesingle{}div\textquotesingle{} (only the first character need be supplied)
+
+Examples\+:
+
+
+\begin{DoxyItemize}
+\item imarith in1.\+fit in2.\+fit add out.\+fit -\/ add the 2 images
+\item imarith in.\+fit 1.\+2 mul out.\+fit -\/ multiply image by 1.\+1
+\item imarith \textquotesingle{}in1.\+fit\mbox{[}1\+:20,1\+:20\mbox{]}\textquotesingle{} \textquotesingle{}in2.\+fit\mbox{[}1\+:20,1\+:20\mbox{]}\textquotesingle{} add !out.fit
+
+add 2 image sections; also overwrite out.\+fit if it exists.
+\item imarith data.\+fit\mbox{[}1\mbox{]} data.\+fit\mbox{[}2\mbox{]} mul out.\+fit -\/ multiply the images
+
+in the 1st and 2nd extensions of the file data.\+fit
+\end{DoxyItemize}
+
+This program first opens the input images. If 2 images, it checks that they have the same dimensions. It then creates the empty output file and copies the header of the first image into it (thus duplicating the size and data type of that image). Memory is allocated to hold one row of the images. The program computes the output image values by reading one row at a time from the input image(s), performing the desired arithmetic operation, and then writing the resulting row to the output file. The program reads and writes the row of data in double precision format, regardless of the intrinsic datatype of the images; C\+F\+I\+T\+S\+IO transparently converts the data format if necessary as the rows are read and written. This program also supports 3D data cubes by looping through each plane of the cube.
+
+2010-\/08-\/19 modified to allow numeric second argument (contributed by Michal Szymanski, Warsaw University Observatory)
+
+Version 1.\+0\+: September 29, 2017
+
+\begin{DoxyAuthor}{Author}
+Dimitrios Psaltis (updated from \href{https://heasarc.gsfc.nasa.gov/docs/software/fitsio/cexamples.html}{\tt https\+://heasarc.\+gsfc.\+nasa.\+gov/docs/software/fitsio/cexamples.\+html})
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+1.\+0
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+September 29, 2017
+\end{DoxyDate}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000002}{Bug}]No known bugs\end{DoxyRefDesc}
+
+
+\begin{DoxyWarning}{Warning}
+no warnings
+\end{DoxyWarning}
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000002}{Todo}]nothing left\end{DoxyRefDesc}
