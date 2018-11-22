@@ -19,14 +19,21 @@ N=10
 def read_img(imgfile,imgformat):
     if imgformat=='ipole':
         data = np.genfromtxt(imgfile)
-        img = data[:,3:].transpose().reshape((4,160,160))
+        NPIX_IM = 160
+#        imvec = data[:,3]; qvec = data[:,4]; uvec = data[:,5]; vvec = data[:,6]
+        imvec =  (np.flipud(np.transpose(data[:,3].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        qvec =  (np.flipud(np.transpose(data[:,4].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        uvec =  (np.flipud(np.transpose(data[:,5].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        vvec =  (np.flipud(np.transpose(data[:,6].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        img = np.append(imvec,qvec,axis=0); img = np.append(img,uvec,axis=0); img = np.append(img,vvec,axis=0)
+        img = img.reshape((4,NPIX_IM,NPIX_IM))
 #    if imgformat=='fits':
         
     return img
 
 # calculate chi^2 for a polarized model image and data file using eht-imaging to simulate data from the model with gain errors and leakage
 # also do rough cut on the idealized data
-def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.2,fluxmax=0.8,npa=2,pamin=90.,pamax=75.,fullfit=False,N=10,):
+def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,npa=8,pamin=-180.,pamax=-180.,fullfit=False,N=10):
     img = read_img(imgfile,imgformat)
     obsall = eh.obsdata.load_uvfits(file,remove_nan=True)
     obsall.add_scans()
@@ -35,9 +42,9 @@ def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.2,fluxmax=0.8,n
     first_null = []; bump_amp = []
     visamp_list = []; visamperr_list = []; cphase_list = []; sigmacp_list = []
     lpamp_list = []; lpamperr_list = []
-    chi2 = []; res = []; imglist = []
+    chi2 = []; chi2amp = []; res = []; imglist = []
     for p in pa:
-        print p
+        print 'pa: ',p
         obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=p)
         obs_sim_perfect = obs_sim_perfect[0]
         obs_sim_perfect.add_cphase()
@@ -49,51 +56,59 @@ def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.2,fluxmax=0.8,n
         bump_amp.append(np.max(np.abs(obs_sim_perfect.data['vis'])[uvd > current_null]))
 # full fit
         if fullfit==True:
-#            res = []; imglist = []
-#            obs.add_cphase()
-            obs = obsall.avg_coherent(0.,scan_avg=True)
-            obs.add_cphase()
-#            obs.plotall('uvdist','amp')
-#            print np.shape(obs.cphase['cphase']), len(obs.scans)
-#            print np.shape(obs_sim_perfect.cphase['cphase']), len(obs_sim_perfect.scans)
             for f in fluxscl:
-                obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=p,fluxscl=f,scan_avg=True)
-                obs_sim_perfect = obs_sim_perfect[0]
-                obs_sim_perfect.add_cphase()
-                obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=True,pa=p,fluxscl=f)
-                visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = get_values(obs_list)
-                res.append(calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect))
-                imglist.append(img)
+                res_t,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = fit_one(obsall,img,pixsize,sefdfac=sefdfac,N=N,pa=p,fluxscl=f)
+                res.append(res_t)
+                imglist.append(im)
                 visamp_list.append(visamp); cphase_list.append(cphase)
                 lpamp_list.append(lpamp); lpamperr_list.append(lpamperr)
                 visamperr_list.append(visamperr); sigmacp_list.append(sigmacp)
+# only use amplitude chi^2 to pick best flux scale because otherwise it is driven to low values where cphase errors are big
+# but best PA needs closure phases so do that in second step using the full chi^2 only for the one flux scale
                 chi2.append(res[-1]['chi2'])
+                chi2amp.append(res[-1]['chi2_amp'])
+                
     
     if fullfit==True:
-        indx=np.argmin(chi2)
-#        print fluxscl[indx], chi2, chi2[indx]
+        fluxindx=np.unravel_index(np.argmin(chi2amp),(npa,nflux))[1]
+        chi22=np.reshape(chi2,(npa,nflux))
+        paindx=np.argmin(chi22[:,fluxindx])
+        uindx=(paindx,fluxindx); indx=paindx*nflux+fluxindx
+        print uindx, chi2, np.array(chi2)[indx]
         print indx, len(chi2), len(imglist), len(visamp_list), len(visamperr_list), len(cphase_list), len(sigmacp_list)
-#            plt.plot(np.sqrt(obs.data['u']**2.+obs.data['v']**2.),np.abs(obs.data['vis']))
         plot_model_data(obs,ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx],imgname+'_'+str(int(p)),res[indx]['chi2_amp'],res[indx]['chi2_cphase'],res[indx]['chi2_lp_amp'])
         best_image = imglist[indx]
         print np.shape(best_image)
-        image_plot(best_image[0],imgname)
+        image_plot(best_image,imgname)
     else:
         best_image = -1.; obs_list = []; res = []
-    return first_null,bump_amp,res,obs_list,best_image,obs_sim_perfect
+    return first_null,bump_amp,[ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx]],res,best_image,obs_sim_perfect
+
+def fit_one(obsall,img,pixsize,sefdfac=0.,N=10,pa=-90.,fluxscl=0.6):
+   obs  = obsall.avg_coherent(0.,scan_avg=True)
+   obs.add_cphase()
+   obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=pa,fluxscl=fluxscl,scan_avg=True)
+   obs_sim_perfect = obs_sim_perfect[0]
+   obs_sim_perfect.add_cphase()
+   obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=True,pa=pa,fluxscl=fluxscl)
+   visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = get_values(obs_list)
+   res = calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect)
+   return res,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax
+
 
 if __name__ == '__main__':
     res,obs_list,best_img = run(sys.argv[1],sys.argv[2],sys.argv[3])
 
 def image_plot(img,imgname,lim=40.,n=80,sat=0.7):
-    x = np.linspace(-4.85e-12*lim,4.85e-12*lim,n)
-    y = np.linspace(-4.85e-12*lim,4.85e-12*lim,n)
-    x,y = np.meshgrid(x*1e9,y*1e9)
-    plt.figure(figsize=(5,5))
-    print np.shape(img)
-    plt.imshow(img,vmax=sat*np.max(img),extent=[lim,-lim,-lim,lim])
-    plt.xlabel(r'x ($\mu$as)'); plt.ylabel(r'y ($\mu$as)')
-    plt.savefig(imgname+'_model_image.pdf',bbox_inches='tight',pad_inches=0.)
+#    x = np.linspace(-4.85e-12*lim,4.85e-12*lim,n)
+#    y = np.linspace(-4.85e-12*lim,4.85e-12*lim,n)
+#    x,y = np.meshgrid(x*1e9,y*1e9)
+#    plt.figure(figsize=(5,5))
+#    print np.shape(img)
+#    plt.imshow(img,vmax=sat*np.max(img),extent=[lim,-lim,-lim,lim])
+#    plt.xlabel(r'x ($\mu$as)'); plt.ylabel(r'y ($\mu$as)')
+#    plt.savefig(imgname+'_model_image.pdf',bbox_inches='tight',pad_inches=0.)
+    img.display(export_pdf=imgname+'_model_image.pdf')
 
 # return set of scores
 def calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect,cut_ruv=0.5e9,N=10):
@@ -112,12 +127,12 @@ def calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_s
     chi2_self=(chi2_self_cphase*len(cphase)+chi2_self_amp*len(good))/(len(good)+len(cphase))
 # polarized part
     qamp = obs.unpack('qamp')['qamp']; uamp = obs.unpack('uamp')['uamp']
-    lpgood=np.where(~np.isnan(lpamp))[0]
-    obs_lpamp = np.sqrt(qamp**2.+uamp**2.)[lpgood]
-    chi2_lp_amp=np.sum((lpamp[lpgood]-obs_lpamp)**2./lpamperr[lpgood]**2.)/len(lpgood)
+    obs_lpamp = np.sqrt(qamp**2.+uamp**2.)
+    lpgood=np.where(~np.isnan(obs_lpamp))[0]
+    chi2_lp_amp=np.sum((lpamp[lpgood]-obs_lpamp[lpgood])**2./lpamperr[lpgood]**2.)/len(lpgood)
     return dict({'chi2_self':chi2_self,'chi2':chi2,'chi2_amp':chi2_amp,'chi2_cphase':chi2_cphase,'chi2_self_cphase':chi2_self_cphase,'chi2_self_amp':chi2_self_amp,'chi2_lp_amp':chi2_lp_amp})
 
-def get_values(obs_list,visamperr_min=0.):
+def get_values(obs_list,visamperr_min=0.01):
     ruv=np.sqrt(obs_list[0].data['u']**2.+obs_list[0].data['v']**2.)
     visamp_list = []; cphase_list = []
     visamp = []; cphase = []
@@ -143,8 +158,10 @@ def get_values(obs_list,visamperr_min=0.):
     print np.shape(visamp_list), np.shape(np.std(visamp_list,axis=0)), np.shape(np.median(visamp_list,axis=0))
     visamp=np.median(visamp_list,axis=0); cphase=np.median(cphase_list,axis=0)
     lpamp=np.median(lpamp_list,axis=0)
-    visamperr=np.sqrt((np.std(visamp_list,axis=0)/np.sqrt(N-1.))**2.+visamperr_min**2.)
-    lpamperr=np.sqrt((np.std(visamp_list,axis=0)/np.sqrt(N-1.))**2.+visamperr_min**2.)
+    visamperr=np.sqrt((np.std(visamp_list,axis=0))**2.+visamperr_min**2.)
+    lpamperr=np.sqrt((np.std(visamp_list,axis=0))**2.+visamperr_min**2.)
+#    visamperr=np.sqrt((np.std(visamp_list,axis=0)/np.sqrt(N-1.))**2.+visamperr_min**2.)
+#    lpamperr=np.sqrt((np.std(visamp_list,axis=0)/np.sqrt(N-1.))**2.+visamperr_min**2.)
     sigmacp=np.std(cphase_list,axis=0)/np.sqrt(N-1.)
     return visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,uvdist,uu,vv,uvdistmax
 
@@ -182,12 +199,12 @@ def plot_model_data(o,ruv,visamp,visamperr,uvdistmax,cphase,sigmacp,lpamp,lpampe
         plt.text(0,85.,r'$\chi^2 = {0:.1f}$'.format(chi2cp))
     plt.savefig(plotname+'_comparison_cphase.pdf',bbox_inches='tight',pad_inches=0.)
     plt.figure(figsize=(5,4))
-    plt.errorbar(ruv/1e9,visamp,visamperr,marker='o',linestyle='',zorder=1,label='simulated model')
-    print np.shape(ruv), np.shape(o.data['vis'])
+    plt.errorbar(ruv/1e9,lpamp,lpamperr,marker='o',linestyle='',zorder=1,label='simulated model')
+    print 'lp shape: ',np.shape(ruv), np.shape(o.unpack('qamp')['qamp'])
     plt.plot(o.unpack('uvdist')['uvdist']/1e9,np.sqrt(o.unpack('qamp')['qamp']**2.+o.unpack('uamp')['uamp']**2.),marker='o',linestyle='',label='data',zorder=3)
     plt.axis([-0.5,9,-0.02,0.14])
     plt.legend(loc='upper right')
-    plt.xlabel(r'uv distance (G$\lambda$)'); plt.ylabel('visibility amplitude (Jy)')
+    plt.xlabel(r'uv distance (G$\lambda$)'); plt.ylabel('polarized amplitude (Jy)')
     print 'chi2lp: ', chi2lp
     if chi2lp > 0:
         plt.text(6,0.09,r'$\chi^2 = {0:.1f}$'.format(chi2lp))

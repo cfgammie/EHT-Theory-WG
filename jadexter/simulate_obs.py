@@ -2,18 +2,18 @@ import ehtim as eh
 import numpy as np
 from scipy.ndimage import rotate
 
-def setup_pol_im(obs,ivals,pixel,fluxscl=0.5,pa=90.):
+def setup_pol_im(obs,ivals,pixel,fluxscl=0.5,pa=-90.):
     sim_img = ivals.copy()
     pol=['I','Q','U','V']
     im = eh.image.Image(sim_img[0], psize=pixel,ra=obs.ra, dec=obs.dec,rf=obs.rf,pol_prim='I')
     for i in range(3):
        im.add_pol_image(sim_img[i+1],pol[i+1])
-    im = im.rotate(pa)
-    flux=im.total_flux()
-    im.imvec *= fluxscl/flux
-    im.qvec *= fluxscl/flux
-    im.uvec *= fluxscl/flux
-    im.vvec *= fluxscl/flux
+    fluxfac=fluxscl/im.total_flux()
+    im = im.rotate(pa/180.*np.pi)
+    im.imvec *= fluxfac
+    im.qvec *= fluxfac
+    im.uvec *= fluxfac
+    im.vvec *= fluxfac
     return im
 
 def setup_obs(obs,sefdfac=1.,fluxscl=0.8,selfcal_lmt=False):
@@ -99,7 +99,7 @@ def sim_vis(obs_in,add_th_noise=True,
     return obs
 
 # CHANGED removed ttype='direct' since it was causing very weird problems with aliasing to higher correlated flux on all blines
-def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dtermp=DTERMPDEF,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=True,N=1,pa=90,selfcal_lmt=False):
+def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dtermp=DTERMPDEF,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=True,N=1,pa=-90.,selfcal_lmt=False):
     obs_new = setup_obs(obs,sefdfac=sefdfac,selfcal_lmt=selfcal_lmt,fluxscl=fluxscl)
     obs_list = []
     if onlyvis==True:
