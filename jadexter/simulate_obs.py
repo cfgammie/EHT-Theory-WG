@@ -21,7 +21,7 @@ def setup_obs(obs,sefdfac=1.,fluxscl=0.8,selfcal_lmt=False):
 #obs = eh.obsdata.load_uvfits('/Users/jdexter/analyses/eht/er5/hops_lo/3601/hops_3601_M87+netcal.uvfits')
     if selfcal_lmt==False:
         obs = obs.flag_sites(['SR']) #remove SMA reference antenna, if necessary  
-        eht = eh.array.load_txt('/Users/jdexter/code/eht-imaging/arrays/EHT2017.txt')
+        eht = eh.array.load_txt('eht-imaging/arrays/EHT2017.txt')
 
 # Populate the array table
         t_obs = list(obs.tarr['site'])
@@ -48,7 +48,7 @@ def setup_obs(obs,sefdfac=1.,fluxscl=0.8,selfcal_lmt=False):
         obs_sc = obs.copy()
         for ii in range(3):
             caltab = eh.self_cal.self_cal(obs_sc.flag_uvdist(uv_max=2e9), gausspriorLMT, 
-                                          sites=['LM','LM'], method='vis', ttype='nfft', 
+                                          sites=['LM','LM'], method='vis', ttype=ttype, 
                                           processes=4, caltable=True, gain_tol=1.0)
             obs_sc = caltab.applycal(obs_sc, interp='nearest', extrapolate=True)
         obs = obs_sc.copy()
@@ -71,7 +71,7 @@ def sim_vis(obs_in,add_th_noise=True,
             jones=False, inv_jones=False,
             tau=TAUDEF, taup=TAUDEF,
             gain_offset=GAIN_OFFSETS, gainp=GAINS,
-            dtermp=DTERMPDEF, dterm_offset=DTERMPDEF, seed=False,selfcal_lmt=False):
+            dterm_offset=DTERMPDEF, seed=False,selfcal_lmt=False):
     obs = obs_in.copy()
     if jones:
         obsdata = simobs.add_jones_and_noise(obs, add_th_noise=add_th_noise,
@@ -80,7 +80,7 @@ def sim_vis(obs_in,add_th_noise=True,
                                              stabilize_scan_phase=stabilize_scan_phase,
                                              stabilize_scan_amp=stabilize_scan_amp,
                                              gainp=gainp, taup=taup, gain_offset=gain_offset,
-                                             dtermp=dtermp,dterm_offset=dterm_offset, seed=seed)
+                                             dterm_offset=dterm_offset, seed=seed)
 
         obs =  ehtim.obsdata.Obsdata(obs.ra, obs.dec, obs.rf, obs.bw, obsdata, obs.tarr,
                                          source=obs.source, mjd=obs.mjd, polrep=obs_in.polrep,
@@ -99,12 +99,12 @@ def sim_vis(obs_in,add_th_noise=True,
     return obs
 
 # CHANGED removed ttype='direct' since it was causing very weird problems with aliasing to higher correlated flux on all blines
-def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dtermp=DTERMPDEF,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=True,N=1,pa=-90.,selfcal_lmt=False):
+def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=True,N=1,pa=-90.,selfcal_lmt=False,ttype='nfft'):
     obs_new = setup_obs(obs,sefdfac=sefdfac,selfcal_lmt=selfcal_lmt,fluxscl=fluxscl)
     obs_list = []
     if onlyvis==True:
         for i in range(N):
-            obs_simulated = sim_vis(obs_new,ampcal=ampcal,phasecal=phasecal,stabilize_scan_phase=stabilize_scan_phase,opacitycal=opacitycal,stabilize_scan_amp=stabilize_scan_amp,jones=jones,inv_jones=inv_jones,dcal=dcal,frcal=frcal,add_th_noise=add_th_noise,dtermp=dtermp,dterm_offset=dterm_offset,gain_offset=gain_offset,gainp=gainp,selfcal_lmt=False)
+            obs_simulated = sim_vis(obs_new,ampcal=ampcal,phasecal=phasecal,stabilize_scan_phase=stabilize_scan_phase,opacitycal=opacitycal,stabilize_scan_amp=stabilize_scan_amp,jones=jones,inv_jones=inv_jones,dcal=dcal,frcal=frcal,add_th_noise=add_th_noise,dterm_offset=dterm_offset,gain_offset=gain_offset,gainp=gainp,selfcal_lmt=False)
             obs_simulated.add_cphase()
             if scan_avg==True:
                 obs_simulated.add_scans()
@@ -115,9 +115,9 @@ def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan
         im = setup_pol_im(obs_new,ivals,pixsize,fluxscl=fluxscl,pa=pa)
         for i in range(N):
             if nonoise==False:
-                obs_simulated = im.observe_same(obs_new,ampcal=ampcal,phasecal=phasecal,stabilize_scan_phase=stabilize_scan_phase,opacitycal=opacitycal,stabilize_scan_amp=stabilize_scan_amp,jones=jones,inv_jones=inv_jones,dcal=dcal,frcal=frcal,add_th_noise=add_th_noise,dtermp=dtermp,dterm_offset=dterm_offset,gain_offset=gain_offset,gainp=gainp)
+                obs_simulated = im.observe_same(obs_new,ampcal=ampcal,phasecal=phasecal,stabilize_scan_phase=stabilize_scan_phase,opacitycal=opacitycal,stabilize_scan_amp=stabilize_scan_amp,jones=jones,inv_jones=inv_jones,dcal=dcal,frcal=frcal,add_th_noise=add_th_noise,dterm_offset=dterm_offset,gain_offset=gain_offset,gainp=gainp,ttype=ttype)
             else:
-                obs_simulated = im.observe_same_nonoise(obs_new)
+                obs_simulated = im.observe_same_nonoise(obs_new,ttype=ttype)
 #            obs_simulated.add_cphase()
             if scan_avg==True:
                 obs_simulated.add_scans()

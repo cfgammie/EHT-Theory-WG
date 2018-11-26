@@ -1,6 +1,7 @@
 # first attempt at "scoring" theory models by simulating data to estimate errors
 # record chi^2 values, visamp / cphase plots, model image
 
+from __future__ import print_function
 import numpy as np
 import simulate_obs
 import matplotlib.pyplot as plt
@@ -10,6 +11,7 @@ import matplotlib
 matplotlib.use('Agg')
 matplotlib.rcParams['image.cmap']='inferno'
 matplotlib.rcParams['lines.markersize']=5
+from astropy.io import fits
 
 # sefdfac = 0 is recommended to use actual noise in data
 sefdfac=0.
@@ -27,25 +29,38 @@ def read_img(imgfile,imgformat):
         vvec =  (np.flipud(np.transpose(data[:,6].reshape((NPIX_IM,NPIX_IM))))).flatten()
         img = np.append(imvec,qvec,axis=0); img = np.append(img,uvec,axis=0); img = np.append(img,vvec,axis=0)
         img = img.reshape((4,NPIX_IM,NPIX_IM))
+    elif imgformat=='grtrans':
+        f = fits.open(imgfile)
+        NPIX_IM = int(np.sqrt(len(f[0].data)/2))
+        data = f[1].data.reshape((NPIX_IM*NPIX_IM,4))
+        # protect for rare NaNs in Koral runs
+        data[np.isnan(data)]=0.
+        f.close()
+        imvec =  (np.flipud(np.transpose(data[:,0].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        qvec =  (np.flipud(np.transpose(data[:,1].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        uvec =  (np.flipud(np.transpose(data[:,2].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        vvec =  (np.flipud(np.transpose(data[:,3].reshape((NPIX_IM,NPIX_IM))))).flatten()
+        img = np.append(imvec,qvec,axis=0); img = np.append(img,uvec,axis=0); img = np.append(img,vvec,axis=0)
+        img = img.reshape((4,NPIX_IM,NPIX_IM))
 #    if imgformat=='fits':
         
     return img
 
 # calculate chi^2 for a polarized model image and data file using eht-imaging to simulate data from the model with gain errors and leakage
 # also do rough cut on the idealized data
-def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,npa=8,pamin=-180.,pamax=-180.,fullfit=False,N=10):
+def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,npa=8,pamin=-180.,pamax=150.,fullfit=False,N=10,ttype='nfft'):
     img = read_img(imgfile,imgformat)
     obsall = eh.obsdata.load_uvfits(file,remove_nan=True)
     obsall.add_scans()
     fluxscl=fluxmin+(fluxmax-fluxmin)*np.arange(nflux)/(nflux-1.)
     pa=pamin+(pamax-pamin)*np.arange(npa)/(npa-1.)
-    first_null = []; bump_amp = []
+    first_null = []; bump_amp = []; gauss_params = []
     visamp_list = []; visamperr_list = []; cphase_list = []; sigmacp_list = []
     lpamp_list = []; lpamperr_list = []
     chi2 = []; chi2amp = []; res = []; imglist = []
     for p in pa:
-        print 'pa: ',p
-        obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=p)
+        print('pa: ',p)
+        obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=p,ttype=ttype)
         obs_sim_perfect = obs_sim_perfect[0]
         obs_sim_perfect.add_cphase()
 # rough cut
@@ -54,10 +69,11 @@ def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,n
         current_null = uvd[ruv[0][np.argmin(np.abs(obs_sim_perfect.data['vis'][ruv]))]]
         first_null.append(current_null)
         bump_amp.append(np.max(np.abs(obs_sim_perfect.data['vis'])[uvd > current_null]))
+        gauss_params.append(im_p.fit_gauss(units='natural'))
 # full fit
         if fullfit==True:
             for f in fluxscl:
-                res_t,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = fit_one(obsall,img,pixsize,sefdfac=sefdfac,N=N,pa=p,fluxscl=f)
+                res_t,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = fit_one(obsall,img,pixsize,sefdfac=sefdfac,N=N,pa=p,fluxscl=f,ttype=ttype)
                 res.append(res_t)
                 imglist.append(im)
                 visamp_list.append(visamp); cphase_list.append(cphase)
@@ -67,30 +83,29 @@ def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,n
 # but best PA needs closure phases so do that in second step using the full chi^2 only for the one flux scale
                 chi2.append(res[-1]['chi2'])
                 chi2amp.append(res[-1]['chi2_amp'])
-                
     
     if fullfit==True:
         fluxindx=np.unravel_index(np.argmin(chi2amp),(npa,nflux))[1]
         chi22=np.reshape(chi2,(npa,nflux))
         paindx=np.argmin(chi22[:,fluxindx])
         uindx=(paindx,fluxindx); indx=paindx*nflux+fluxindx
-        print uindx, chi2, np.array(chi2)[indx]
-        print indx, len(chi2), len(imglist), len(visamp_list), len(visamperr_list), len(cphase_list), len(sigmacp_list)
-        plot_model_data(obs,ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx],imgname+'_'+str(int(p)),res[indx]['chi2_amp'],res[indx]['chi2_cphase'],res[indx]['chi2_lp_amp'])
+        print(uindx, chi2, np.array(chi2)[indx])
+        print(indx, len(chi2), len(imglist), len(visamp_list), len(visamperr_list), len(cphase_list), len(sigmacp_list))
+        plot_model_data(obs,ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx],imgname+'_'+str(int(pa[paindx])),res[indx]['chi2_amp'],res[indx]['chi2_cphase'],res[indx]['chi2_lp_amp'])
         best_image = imglist[indx]
-        print np.shape(best_image)
+        print(np.shape(best_image))
         image_plot(best_image,imgname)
     else:
         best_image = -1.; obs_list = []; res = []
-    return first_null,bump_amp,[ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx]],res,best_image,obs_sim_perfect
+    return first_null,bump_amp,gauss_params,[ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx],pa[paindx],fluxscl[fluxindx],chi22],res,best_image,obs_sim_perfect
 
-def fit_one(obsall,img,pixsize,sefdfac=0.,N=10,pa=-90.,fluxscl=0.6):
+def fit_one(obsall,img,pixsize,sefdfac=0.,N=10,pa=-90.,fluxscl=0.6,ttype='nfft'):
    obs  = obsall.avg_coherent(0.,scan_avg=True)
    obs.add_cphase()
-   obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=pa,fluxscl=fluxscl,scan_avg=True)
+   obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=pa,fluxscl=fluxscl,scan_avg=True,ttype=ttype)
    obs_sim_perfect = obs_sim_perfect[0]
    obs_sim_perfect.add_cphase()
-   obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=True,pa=pa,fluxscl=fluxscl)
+   obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=True,pa=pa,fluxscl=fluxscl,ttype=ttype)
    visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = get_values(obs_list)
    res = calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect)
    return res,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax
@@ -113,7 +128,7 @@ def image_plot(img,imgname,lim=40.,n=80,sat=0.7):
 # return set of scores
 def calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect,cut_ruv=0.5e9,N=10):
     good=np.where(ruv > cut_ruv)[0]
-    print cut_ruv, np.min(ruv), len(good), len(ruv)
+    print(cut_ruv, np.min(ruv), len(good), len(ruv))
     chi2_self_amp=np.sum((visamp-obs_sim_perfect.unpack('amp')['amp'])**2./visamperr**2.)/len(visamp)
     diff=cphase-obs_sim_perfect.cphase['cphase']
 # account for wrapping closure phases
@@ -155,7 +170,7 @@ def get_values(obs_list,visamperr_min=0.01):
         visamp_list.append(o.unpack('amp')['amp'])
         lpamp_list.append(np.sqrt(o.unpack('qamp')['qamp']**2.+o.unpack('uamp')['uamp']**2.))
         cphase_list.append(o.cphase['cphase'])
-    print np.shape(visamp_list), np.shape(np.std(visamp_list,axis=0)), np.shape(np.median(visamp_list,axis=0))
+    print(np.shape(visamp_list), np.shape(np.std(visamp_list,axis=0)), np.shape(np.median(visamp_list,axis=0)))
     visamp=np.median(visamp_list,axis=0); cphase=np.median(cphase_list,axis=0)
     lpamp=np.median(lpamp_list,axis=0)
     visamperr=np.sqrt((np.std(visamp_list,axis=0))**2.+visamperr_min**2.)
@@ -178,7 +193,7 @@ def plot_model_data(o,ruv,visamp,visamperr,uvdistmax,cphase,sigmacp,lpamp,lpampe
 #    o.plotall('uvdist','amp')
     plt.figure(figsize=(5,4))
     plt.errorbar(ruv/1e9,visamp,visamperr,marker='o',linestyle='',zorder=1,label='simulated model')
-    print np.shape(ruv), np.shape(o.data['vis'])
+    print(np.shape(ruv), np.shape(o.data['vis']))
 #    plt.errorbar(o.unpack('uvdist')['uvdist']/1e9,o.unpack('amp')['amp'],o.unpack('sigma')['sigma'],marker='o',linestyle='',label='data',zorder=3)
     plt.plot(o.unpack('uvdist')['uvdist']/1e9,o.unpack('amp')['amp'],marker='o',linestyle='',label='data',zorder=3)
     plt.axis([-0.5,9,-0.05,0.8])
@@ -200,12 +215,12 @@ def plot_model_data(o,ruv,visamp,visamperr,uvdistmax,cphase,sigmacp,lpamp,lpampe
     plt.savefig(plotname+'_comparison_cphase.pdf',bbox_inches='tight',pad_inches=0.)
     plt.figure(figsize=(5,4))
     plt.errorbar(ruv/1e9,lpamp,lpamperr,marker='o',linestyle='',zorder=1,label='simulated model')
-    print 'lp shape: ',np.shape(ruv), np.shape(o.unpack('qamp')['qamp'])
+    print('lp shape: ',np.shape(ruv), np.shape(o.unpack('qamp')['qamp']))
     plt.plot(o.unpack('uvdist')['uvdist']/1e9,np.sqrt(o.unpack('qamp')['qamp']**2.+o.unpack('uamp')['uamp']**2.),marker='o',linestyle='',label='data',zorder=3)
     plt.axis([-0.5,9,-0.02,0.14])
     plt.legend(loc='upper right')
     plt.xlabel(r'uv distance (G$\lambda$)'); plt.ylabel('polarized amplitude (Jy)')
-    print 'chi2lp: ', chi2lp
+    print('chi2lp: ', chi2lp)
     if chi2lp > 0:
         plt.text(6,0.09,r'$\chi^2 = {0:.1f}$'.format(chi2lp))
     plt.savefig(plotname+'_comparison_lpamp.pdf',bbox_inches='tight',pad_inches=0.)
