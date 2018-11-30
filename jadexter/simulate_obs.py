@@ -99,7 +99,7 @@ def sim_vis(obs_in,add_th_noise=True,
     return obs
 
 # CHANGED removed ttype='direct' since it was causing very weird problems with aliasing to higher correlated flux on all blines
-def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=True,N=1,pa=-90.,selfcal_lmt=False,ttype='nfft'):
+def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan_phase=True,opacitycal=True,stabilize_scan_amp=True,jones=True,inv_jones=True,dcal=False,frcal=True,add_th_noise=True,dterm_offset=DTERMPDEF,sefdfac=1.,gainp=GAINS,gain_offset=GAIN_OFFSETS,onlyvis=False,nonoise=False,scan_avg=False,N=1,pa=-90.,selfcal_lmt=False,ttype='nfft'):
     obs_new = setup_obs(obs,sefdfac=sefdfac,selfcal_lmt=selfcal_lmt,fluxscl=fluxscl)
     obs_list = []
     if onlyvis==True:
@@ -112,13 +112,17 @@ def run(obs,ivals,pixsize,fluxscl=0.5,ampcal=False,phasecal=False,stabilize_scan
             obs_list.append(obs_simulated)
         im=-1.
     else:
-        im = setup_pol_im(obs_new,ivals,pixsize,fluxscl=fluxscl,pa=pa)
+# if ehtim im object is already input then skip this otherwise read in the image
+        try:
+            ivals.total_flux()
+            im = ivals
+        except AttributeError:
+            im = setup_pol_im(obs_new,ivals,pixsize,fluxscl=fluxscl,pa=pa)
         for i in range(N):
             if nonoise==False:
                 obs_simulated = im.observe_same(obs_new,ampcal=ampcal,phasecal=phasecal,stabilize_scan_phase=stabilize_scan_phase,opacitycal=opacitycal,stabilize_scan_amp=stabilize_scan_amp,jones=jones,inv_jones=inv_jones,dcal=dcal,frcal=frcal,add_th_noise=add_th_noise,dterm_offset=dterm_offset,gain_offset=gain_offset,gainp=gainp,ttype=ttype)
             else:
                 obs_simulated = im.observe_same_nonoise(obs_new,ttype=ttype)
-#            obs_simulated.add_cphase()
             if scan_avg==True:
                 obs_simulated.add_scans()
                 obs_simulated = obs_simulated.avg_coherent(0.,scan_avg=True)

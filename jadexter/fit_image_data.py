@@ -17,6 +17,7 @@ from astropy.io import fits
 sefdfac=0.
 #gain=0.2
 N=10
+SCAN_AVG = False
 
 def read_img(imgfile,imgformat):
     if imgformat=='ipole':
@@ -42,7 +43,7 @@ def read_img(imgfile,imgformat):
         vvec =  (np.flipud(np.transpose(data[:,3].reshape((NPIX_IM,NPIX_IM))))).flatten()
         img = np.append(imvec,qvec,axis=0); img = np.append(img,uvec,axis=0); img = np.append(img,vvec,axis=0)
         img = img.reshape((4,NPIX_IM,NPIX_IM))
-#    if imgformat=='fits':
+#    elif imgformat=='fits':        
         
     return img
 
@@ -100,12 +101,12 @@ def run(file,imgfile,imgformat,pixsize,imgname,nflux=4,fluxmin=0.4,fluxmax=0.8,n
     return first_null,bump_amp,gauss_params,[ruv,visamp_list[indx],visamperr_list[indx],ruvmax,cphase_list[indx],sigmacp_list[indx],lpamp_list[indx],lpamperr_list[indx],pa[paindx],fluxscl[fluxindx],chi22],res,best_image,obs_sim_perfect
 
 def fit_one(obsall,img,pixsize,sefdfac=0.,N=10,pa=-90.,fluxscl=0.6,ttype='nfft'):
-   obs  = obsall.avg_coherent(0.,scan_avg=True)
+   obs  = obsall.avg_coherent(0.,scan_avg=SCAN_AVG)
    obs.add_cphase()
-   obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=pa,fluxscl=fluxscl,scan_avg=True,ttype=ttype)
+   obs_sim_perfect,im_p,obs_new_p = simulate_obs.run(obsall,img,pixsize,nonoise=True,pa=pa,fluxscl=fluxscl,scan_avg=SCAN_AVG,ttype=ttype)
    obs_sim_perfect = obs_sim_perfect[0]
    obs_sim_perfect.add_cphase()
-   obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=True,pa=pa,fluxscl=fluxscl,ttype=ttype)
+   obs_list,im,obs_new = simulate_obs.run(obs,img,pixsize,sefdfac=sefdfac,N=N,scan_avg=SCAN_AVG,pa=pa,fluxscl=fluxscl,ttype=ttype)
    visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax = get_values(obs_list)
    res = calc_likelihood(ruv,visamp,visamperr,cphase,sigmacp,lpamp,lpamperr,obs,obs_sim_perfect)
    return res,obs,obs_sim_perfect,im,visamp,cphase,lpamp,visamperr,sigmacp,lpamperr,ruv,u,v,ruvmax
